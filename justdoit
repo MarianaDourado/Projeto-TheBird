@@ -1,26 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
+#include <locale.h>
+
 
 int main(){
+    //setlocale(LC_ALL, "Portuguese");
+    char entry;
+    //menu do jogo?
+    //JOGAR ->
+    //tela preta que vai ficando mais clara
 
-    char decisoes[8][1000] = {"You should not be here.", 
-                            "Voce acorda. Prefere fazer tapioca ou pao?", 
-                            "Tapioca de queijo ou manteiga?",
-                            "pao misto ou com manteiga?",
-                            "Tapioca ta uma delicia",
-                            "Tapioca queimou.",
-                            "Pao ta uma delicia.", 
-                            "Pao queimou."
-                            };
-    int i, d;
+    //passaro fala:
+    printf("Ei, voce finalmente acordou.\n");
+    printf("Tudo bem, e dificil no comeco, voce pode pressionar qualquer tecla para continuar.\n");
+    scanf("%c", &entry);
+    printf("Otimo.\n");
+    printf("Acho que estou com fome, que tal prepararmos alguma coisa?\n");
 
-    //for(i=1;i<8;i++) printf("\nLinha %d: %s\n", i, decisoes[i]);
- 
-    i = 1;
+    char dialogoinicial[4][1000] = {"0",
+                                    "(1) O que e voce?\n(2) Quem e voce?",
+                                    "Nossa, o que sou eu? Isso doeu...",
+                                    "Bem... isso e complicado..."
+    };
+
+    //-----COLOCAR ESSE CODIGO NUMA FUNCAO "ArvoreDecisao()"-------//
+    int i = 1, d;
     while(i != 0){
-        printf("%s\n", decisoes[i]);
+        printf("%s\n", dialogoinicial[i]);
+        if(i == 2 || i == 3) break;
         scanf("%d", &d);
 
         switch (d){
@@ -33,10 +41,59 @@ int main(){
                 break;
         
             default:
-                printf("Programa encerrado\n");
-                return 0;
-        }   
+                printf("Nao entendi. Opcao 1 ou 2?\n");
+                scanf("%d", &d);
+                break;
+        }  
+
+        
+
     }
+    //------A FUNCAO ACABA AQUI-----------\\
+    i = 1;
+    
+
+    printf("Por enquanto, sou apenas um passaro que ira te acompanhar em sua jornada.\n");
+
+
+    char cafedamanha[8][1000] = {"0", 
+                            "Mas entao, vamos fazer tapioca ou pao?", 
+                            "Hum, ok, tapioca com queijo ou manteiga?",
+                            "Pao! Adoro! Misto ou com manteiga?",
+                            "Deixa eu experimentar... Tapioca com queijo ta uma delicia!",
+                            "Tapioca nao ta tao boa, mas da pra engolir...",
+                            "Deixa eu experimentar... Pao ta uma delicia.", 
+                            "O pao ta gostosinho, mas poderia ter colocado menos manteiga ne..."
+                            };
+    
+
+    //for(i=1;i<8;i++) printf("\nLinha %d: %s\n", i, cafedamanha[i]);
+
+    while(i != 0){
+        printf("%s\n", cafedamanha[i]);
+        if(i == 4 || i == 5 || i == 6 || i == 7) break;
+        scanf("%d", &d);
+
+        switch (d){
+            case 1:
+                i = i*2;
+                break;
+
+            case 2:
+                i = i*2 + 1;
+                break;
+        
+            default:
+                printf("Não entendi.\n");
+                scanf("%d", &d);
+                break;
+        }   
+
+        
+
+    }
+    printf("The End\n");
+ 
 
   return 0;
 }
