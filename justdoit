@@ -3,7 +3,7 @@
 #include <string.h>
 #include <locale.h>
 
-int VerificaCarac(char * str, char c);
+int VerificaCarac(char * str);
 
 
 int main(){
@@ -17,7 +17,7 @@ int main(){
     //passaro fala:
     printf("???: Ei, voce finalmente acordou.\n");
     printf("???: Tudo bem, e dificil no comeco, voce pode pressionar qualquer tecla para continuar.\n");
-    scanf("%c", &entry);
+    scanf("%c", &entry); //IDEIA-----NAO PRECISAR DO ENTER PARA CONTINUAR, APENAS O CARACTER-----REPETE-SE-----//
     printf("???: Otimo.\n");
     printf("???: Acho que estou com fome, que tal prepararmos alguma coisa?\n");
 
@@ -90,7 +90,7 @@ int main(){
         }   
     }
 
-    printf("\n"); //scanf("%c", &entry); //desacelerar o jogo
+    printf("\n"); //scanf("%c", &entry); //IDEIA-------desacelerar o jogo-----REPETE-SE---
     //pode ser o enter
 
     char nomepassaro[20];
@@ -123,7 +123,7 @@ int main(){
                 break;
         
             default:
-                printf("???: Nao entendi. Opcao 1 ou 2?\n");
+                printf("???: Nao entendi. Opcao 1 ou 2?\n"); //INCOMPLETO--------REPETE-SE!!------
                 break;
         }  
     }
@@ -132,20 +132,15 @@ int main(){
     
     if(nome_ounao != 0){
         printf("???: Entao, qual vai ser meu nome?!\n");
-        scanf("%s", nomepassaro);
-        //se houver presença de pelo menos um numero no nome tem-se:
-        while(VerificaCarac(nomepassaro, '2') == 1){ //nomepassaro
-            printf("???: Esse nome nao me parece apropriado, que tal tentar de novo?\n");
-            scanf("%s", nomepassaro);
+        scanf("%*c"); //gab att
+        scanf("%[^\n]", nomepassaro);
+
+        //se houver presença de pelo menos um simbolo tem-se:
+        while( VerificaCarac(nomepassaro) == 1 ){ //nomepassaro
+            printf("???: Esse nome nao me parece apropriado, que tal tentar outro?\n");
+            scanf("%*c"); //gab att
+            scanf("%[^\n]", nomepassaro);
         }
-
-        /*se houver presença de acento no nome tem-se:
-        while(){ //nomepassaro
-            printf("???: Nao sou muito bom com acentos... Que tal tentar de novo?\n");
-            scanf("%s", nomepassaro);
-        }*/
-
-
         
         printf("%s: Ei! Tudo certo! Me sinto vivo. %s eh um otimo nome!\n", nomepassaro, nomepassaro);
     }
@@ -155,7 +150,7 @@ int main(){
         printf("\n");//scanf("%c", &entry); //desacelerar o jogo
         //pode ser o enter
 
-        printf("%s: Beleza, posso saber seu nome?\n");
+        printf("%s: Beleza, caro amigo, posso saber seu nome?\n");
 
     char dialogprotagnome[4][1000] = {"0",
                                     "(1) Nao.\n(2) Ah... Claro...",
@@ -191,22 +186,18 @@ int main(){
 
 
     if(d==2){
-        printf("/---OBS: Lembre-se de colocar um nome masculino.---/\n");
+        printf("/---OBS: Lembre-se de colocar um nome masculino.---/\n"); //tem uma maneira mais sutil de relembrar isso?
         printf("Meu nome eh ");
-        scanf("%s", nomeprotag);
+        scanf("%*c");
+        scanf("%[^\n]", nomeprotag);
 
 
-        /*se houver presença de pelo menos um numero no nome tem-se:
-        while(){ //nomeprotag
+        //se houver presença de pelo menos um simb no nome tem-se:
+        while( VerificaCarac(nomeprotag) == 1 ){
             printf("???: Acho que seu nome nem existe ou sua mae te odeia, que tal tentar de novo?\n");
-            scanf("%s", nomeprotag);
-        }*/
-
-        /*se houver presença de acento no nome tem-se:
-        while(){ //nomeprotag
-            printf("???: Nao sou muito bom com acentos... Como eh?\n");
-            scanf("%s", nomeprotag);
-        }*/
+            scanf("%*c");
+            scanf("%[^\n]", nomeprotag);
+        }
 
 
         printf("%s: Wow! Nome legal, %s, hein?, queria que fosse o meu...\n", nomepassaro, nomeprotag);
@@ -220,21 +211,15 @@ int main(){
 
         printf("/---OBS: Lembre-se de colocar um nome masculino.---/\n");
         printf("%s: Ei, olha so! Nao tem como escapar de mim. Seu nome eh... Calma, que letra dificil... Ok, seu nome eh... ", nomepassaro);
-        scanf("%s", nomeprotag);
+        scanf("%*c");
+        scanf("%[^\n]", nomeprotag);
 
 
-
-        /*se houver presença de pelo menos um numero no nome tem-se:
-        while(){ //nomeprotag
+        while( VerificaCarac(nomeprotag) == 1 ){
             printf("???: Isso nao eh possivel, deixa eu reler...\n");
-            scanf("%s", nomeprotag);
-        }*/
-
-        /*se houver presença de acento no nome tem-se:
-        while(){ //nomeprotag
-            printf("???: Ei, isso eh um acento? Nao entendo... Como seria seu nome sem ele?\n");
-            scanf("%s", nomeprotag);
-        }*/
+            scanf("%*c");
+            scanf("%[^\n]", nomeprotag);
+        }
 
 
         printf("%s: Aha! Ok, amigo %s, nao se preocupe. Nao vou te machucar\n", nomepassaro, nomeprotag);
@@ -244,9 +229,9 @@ int main(){
     printf("\n");
     //--------------DETALHES DA ATUALIZAÇÃO-------------//
     //DATA: 21/12
-    //AUTOR(A): MARI
+    //AUTOR(A): MARI E GABS
     //COMENTARIO DA ATUALIZAÇÃO: adicionei interação do nome do passaro e do protag + ideias
-    //INCOMPLETO: Funcao para identificar caracter indesejado no nome
+    //INCOMPLETO: ta comentado :P
     //-----------THANKS FOR YOU CONTRIBUTION-----------//
 
 
@@ -257,14 +242,16 @@ int main(){
   return 0;
 }
 
-int VerificaCarac(char * str, char c){ //--------INCOMPLETO--------//
+int VerificaCarac(char * str){
     int i, ops = 0;
-
-    for(i=0; i != NULL; i++){
-        if(str[i] == c) ops = 1;
-        break;
+   
+    for(i=0; i < strlen(str); i++){
+        //printf("%c", str[i]);
+        if( ( (int)str[i] >= 33 && (int)str[i] <= 64 ) || ( (int)str[i] >= 91 && str[i] <= 96 ) || ( (int)str[i] >= 123) ){
+            ops = 1;
+            break;
+        }
     }
-
     if(ops == 1) return 1;
     else return 0;
 }
