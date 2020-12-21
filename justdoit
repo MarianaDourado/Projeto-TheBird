@@ -12,19 +12,19 @@ int main(){
     //tela preta que vai ficando mais clara
 
     //passaro fala:
-    printf("Ei, voce finalmente acordou.\n");
-    printf("Tudo bem, e dificil no comeco, voce pode pressionar qualquer tecla para continuar.\n");
+    printf("???: Ei, voce finalmente acordou.\n");
+    printf("???: Tudo bem, e dificil no comeco, voce pode pressionar qualquer tecla para continuar.\n");
     scanf("%c", &entry);
-    printf("Otimo.\n");
-    printf("Acho que estou com fome, que tal prepararmos alguma coisa?\n");
+    printf("???: Otimo.\n");
+    printf("???: Acho que estou com fome, que tal prepararmos alguma coisa?\n");
 
     char dialogoinicial[4][1000] = {"0",
                                     "(1) O que e voce?\n(2) Quem e voce?",
-                                    "Nossa, o que sou eu? Isso doeu...",
-                                    "Bem... isso e complicado..."
+                                    "???: Nossa, o que sou eu? Isso doeu...",
+                                    "???: Bem... isso e complicado..."
     };
 
-    //-----COLOCAR ESSE CODIGO NUMA FUNCAO "ArvoreDecisao()"-------//
+    
     int i = 1, d;
     while(i != 0){
         printf("%s\n", dialogoinicial[i]);
@@ -41,7 +41,7 @@ int main(){
                 break;
         
             default:
-                printf("Nao entendi. Opcao 1 ou 2?\n");
+                printf("???: Nao entendi. Opcao 1 ou 2?\n");
                 scanf("%d", &d);
                 break;
         }  
@@ -49,21 +49,19 @@ int main(){
         
 
     }
-    //------A FUNCAO ACABA AQUI-----------\\
-    i = 1;
-    
+    i = d = 1;
 
-    printf("Por enquanto, sou apenas um passaro que ira te acompanhar em sua jornada.\n");
+    printf("???: Por enquanto, sou apenas um passaro que ira te acompanhar em sua jornada.\n");
 
 
     char cafedamanha[8][1000] = {"0", 
-                            "Mas entao, vamos fazer tapioca ou pao?", 
-                            "Hum, ok, tapioca com queijo ou manteiga?",
-                            "Pao! Adoro! Misto ou com manteiga?",
-                            "Deixa eu experimentar... Tapioca com queijo ta uma delicia!",
-                            "Tapioca nao ta tao boa, mas da pra engolir...",
-                            "Deixa eu experimentar... Pao ta uma delicia.", 
-                            "O pao ta gostosinho, mas poderia ter colocado menos manteiga ne..."
+                            "???: Mas entao, vamos fazer tapioca ou pao?", 
+                            "???: Hum, ok, tapioca com queijo ou manteiga?",
+                            "???: Pao! Adoro! Misto ou com manteiga?",
+                            "???: Deixa eu experimentar... Tapioca com queijo ta uma delicia!",
+                            "???: Tapioca nao ta tao boa, mas da pra engolir...",
+                            "???: Deixa eu experimentar... Pao ta uma delicia.", 
+                            "???: O pao ta gostosinho, mas poderia ter colocado menos manteiga ne..."
                             };
     
 
@@ -84,16 +82,78 @@ int main(){
                 break;
         
             default:
-                printf("Não entendi.\n");
-                scanf("%d", &d);
+                printf("???: Nao entendi.\n");
                 break;
         }   
-
-        
-
     }
+
+    //scanf("%c", &entry); //desacelerar o jogo
+
+    char nomepassaro[10];
+    int nome_ounao; //presença de nome ou n
+    //em outro momento da historia ele pergunta o nome
+
+    printf("???: Ei, o que acha de me dar um nome? Seria mais legal!\n");
+
+     char qualmeunome[4][1000] = {"0",
+                                    "(1) Eh realmente necessario?\n(2) Tudo bem...",
+                                    "Ok, isso me machucou.",
+                                    "Esse eh o espirito!"
+    };
+
+    
+    i = 1;
+    while(i != 0){
+        printf("%s\n", qualmeunome[i]);
+        if(i == 2 || i == 3) break;
+        scanf("%d", &d);
+
+        switch (d){
+            case 1:
+                i = i*2;
+                nome_ounao = 0;
+                break;
+
+            case 2:
+                i = i*2 + 1;
+                break;
+        
+            default:
+                printf("???: Nao entendi. Opcao 1 ou 2?\n");
+                break;
+        }  
+    }
+
+    
+    
+    if(nome_ounao != 0){
+        printf("???: Entao, qual vai ser meu nome?!\n");
+        scanf("%s", nomepassaro);
+        /*se houver presença de pelo menos um numero no nome tem-se:
+        while(){ //nomepassaro
+            printf("???: Esse nome nao me parece apropriado, que tal tentar de novo?\n");
+            scanf("%s", nomepassaro);
+        }*/
+
+        /*se houver presença de acento no nome tem-se:
+        while(){ //nomepassaro
+            printf("???: Nao sou muito bom com acentos... Que tal tentar de novo?\n");
+            scanf("%s", nomepassaro);
+        }*/
+
+        printf("%s: Ei! Tudo certo! Me sinto vivo. %s eh um otimo nome!\n", nomepassaro, nomepassaro);
+    }
+
+    //-----------DETALHES DA ATUALIZAÇÃO-----------//
+    //DATA: 21/12
+    //AUTOR: MARI
+    //COMENTARIO DA ATUALIZAÇÃO: adicionei interação do nome
+    //-----------THANKS FOR YOU CONTRIBUTION-----------//
+
+
     printf("The End\n");
  
+
 
   return 0;
 }
