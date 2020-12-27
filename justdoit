@@ -22,7 +22,7 @@ int main(){
     printf("???: Acho que estou com fome, que tal prepararmos alguma coisa?\n");
 
     char **dialogo;
-    int j, k;
+    int j;
 
     // aloca um vetor de LIN ponteiros para linhas
     dialogo = malloc(sizeof(char*)*5);
@@ -62,32 +62,36 @@ int main(){
                
 
     }
-        for(j=0;j<5;j++)
-    {
-        free(dialogo[j]);
-    }
+        for(j=0;j<5;j++)free(dialogo[j]);
 
+        free(dialogo);
     
+
+
     i = d = 1;
 
     printf("???: Por enquanto, sou apenas um passaro que ira te acompanhar em sua jornada.\n");
 
 
-    char cafedamanha[8][1000] = {"0", 
-                            "???: Mas entao, vamos fazer (1)tapioca ou (2)pao?", 
-                            "???: Hum, ok, tapioca com (1)queijo ou (2)manteiga?",
-                            "???: Pao! Adoro! (1)Misto ou com (2)manteiga?",
-                            "???: Deixa eu experimentar... Tapioca com queijo ta uma delicia!",
-                            "???: Tapioca nao ta tao boa, mas da pra engolir...",
-                            "???: Deixa eu experimentar... Pao ta uma delicia.", 
-                            "???: O pao ta gostosinho, mas poderia ter colocado menos manteiga ne..."
-                            };
+    dialogo = calloc(8, sizeof(char*));
+
+    for(j=0;j<8;j++)dialogo[j] = calloc(1000, sizeof(char));
+
+
+    dialogo[0] = "0"; 
+    dialogo[1] = "???: Mas entao, vamos fazer (1)tapioca ou (2)pao?"; 
+    dialogo[2] = "???: Hum, ok, tapioca com (1)queijo ou (2)manteiga?";
+    dialogo[3] = "???: Pao! Adoro! (1)Misto ou com (2)manteiga?";
+    dialogo[4] = "???: Deixa eu experimentar... Tapioca com queijo ta uma delicia!";
+    dialogo[5] = "???: Tapioca nao ta tao boa, mas da pra engolir...";
+    dialogo[6] = "???: Deixa eu experimentar... Pao ta uma delicia.";
+    dialogo[7] = "???: O pao ta gostosinho, mas poderia ter colocado menos manteiga ne...";
     
 
     //for(i=1;i<8;i++) printf("\nLinha %d: %s\n", i, cafedamanha[i]);
 
     while(i != 0){
-        printf("%s\n", cafedamanha[i]);
+        printf("%s\n", dialogo[i]);
         if(i == 4 || i == 5 || i == 6 || i == 7) break;
         scanf("%d", &d);
 
@@ -105,6 +109,10 @@ int main(){
                 break;
         }   
     }
+
+    for(j=0;j<8;j++)free(dialogo[j]);
+
+    free(dialogo);
 
     printf("\n"); //scanf("%c", &entry); //IDEIA-------desacelerar o jogo-----REPETE-SE---
     //pode ser o enter
@@ -252,8 +260,6 @@ int main(){
 
 
     printf("The End\n");
- 
-    free(dialogo);
 
   return 0;
 }
