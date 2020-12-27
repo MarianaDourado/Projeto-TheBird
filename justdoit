@@ -21,16 +21,27 @@ int main(){
     printf("???: Otimo.\n");
     printf("???: Acho que estou com fome, que tal prepararmos alguma coisa?\n");
 
-    char dialogoinicial[4][1000] = {"0",
-                                    "(1) Calmai! O que e voce?\n(2) Calmai! Quem e voce?",
-                                    "???: Nossa, o que sou eu? Isso doeu...",
-                                    "???: Bem... isso e complicado..."
-    };
+    char **dialogo;
+    int j, k;
+
+    // aloca um vetor de LIN ponteiros para linhas
+    dialogo = malloc(sizeof(char*)*5);
+
+    // aloca um vetor com todos os elementos da matriz
+    for(j=0;j<5;j++)
+    {
+        dialogo[j]=malloc(sizeof(char)*1000);
+    }
+
+    dialogo[0] = "0";
+    dialogo[1] = "(1) Calmai! O que e voce?\n(2) Calmai! Quem e voce?";
+    dialogo[2] = "???: Nossa, o que sou eu? Isso doeu...";
+    dialogo[3] = "???: Bem... isso e complicado...";
 
     
     int i = 1, d;
     while(i != 0){
-        printf("%s\n", dialogoinicial[i]);
+        printf("%s\n", dialogo[i]);
         if(i == 2 || i == 3) break;
         scanf("%d", &d);
 
@@ -47,20 +58,25 @@ int main(){
                 printf("???: Nao entendi. Opcao 1 ou 2?\n");
                 scanf("%d", &d);
                 break;
-        }  
-
-        
+        }
+               
 
     }
+        for(j=0;j<5;j++)
+    {
+        free(dialogo[j]);
+    }
+
+    
     i = d = 1;
 
     printf("???: Por enquanto, sou apenas um passaro que ira te acompanhar em sua jornada.\n");
 
 
     char cafedamanha[8][1000] = {"0", 
-                            "???: Mas entao, vamos fazer tapioca ou pao?", 
-                            "???: Hum, ok, tapioca com queijo ou manteiga?",
-                            "???: Pao! Adoro! Misto ou com manteiga?",
+                            "???: Mas entao, vamos fazer (1)tapioca ou (2)pao?", 
+                            "???: Hum, ok, tapioca com (1)queijo ou (2)manteiga?",
+                            "???: Pao! Adoro! (1)Misto ou com (2)manteiga?",
                             "???: Deixa eu experimentar... Tapioca com queijo ta uma delicia!",
                             "???: Tapioca nao ta tao boa, mas da pra engolir...",
                             "???: Deixa eu experimentar... Pao ta uma delicia.", 
@@ -210,7 +226,7 @@ int main(){
         //pode ser o enter
 
         printf("/---OBS: Lembre-se de colocar um nome masculino.---/\n");
-        printf("%s: Ei, olha so! Nao tem como escapar de mim. Seu nome eh... Calma, que letra dificil... Ok, seu nome eh... ", nomepassaro);
+        printf("%s: Ei, olha so! Nao tem como escapar de mim. Seu nome eh... Calma, que letra dificil... Ok, seu nome eh...\n ", nomepassaro);
         scanf("%*c");
         scanf("%[^\n]", nomeprotag);
 
@@ -237,7 +253,7 @@ int main(){
 
     printf("The End\n");
  
-
+    free(dialogo);
 
   return 0;
 }
