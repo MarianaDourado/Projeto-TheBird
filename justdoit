@@ -8,7 +8,8 @@ int VerificaCarac(char * str);
 
 int main(){
     //Os dialogos anteriores podiam sumir :/
-    setlocale(LC_ALL, "Portuguese");
+    //como?
+    setlocale(LC_ALL, "");
     char entry;
     //menu do jogo?
     //JOGAR ->
@@ -19,6 +20,9 @@ int main(){
     printf("???: Tudo bem, e dificil no comeco, voce pode pressionar qualquer tecla para continuar.\n");
     scanf("%c", &entry); //IDEIA-----NAO PRECISAR DO ENTER PARA CONTINUAR, APENAS O CARACTER-----REPETE-SE-----//
     printf("???: Otimo.\n");
+
+    system("cls"); //limpa terminal
+
     printf("???: Acho que estou com fome, que tal prepararmos alguma coisa?\n");
 
     char **dialogo;
@@ -28,14 +32,12 @@ int main(){
     dialogo = malloc(sizeof(char*)*5);
 
     // aloca um vetor com todos os elementos da matriz
-    for(j=0;j<5;j++)
-    {
-        dialogo[j]=malloc(sizeof(char)*1000);
-    }
+    for(j=0;j<5;j++) dialogo[j]=malloc(sizeof(char)*1000);
+    
 
     dialogo[0] = "0";
     dialogo[1] = "(1) Calmai! O que e voce?\n(2) Calmai! Quem e voce?";
-    dialogo[2] = "???: Nossa, o que sou eu? Isso doeu...";
+    dialogo[2] = "???: Nossa, \"o que sou eu\"? Isso doeu...";
     dialogo[3] = "???: Bem... isso e complicado...";
 
     
@@ -54,9 +56,8 @@ int main(){
                 i = i*2 + 1;
                 break;
         
-            default:
-                printf("???: Nao entendi. Opcao 1 ou 2?\n");
-                scanf("%d", &d);
+            default: //diff de 1 ou 2
+                printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
                 break;
         }
                
@@ -80,12 +81,12 @@ int main(){
 
     dialogo[0] = "0"; 
     dialogo[1] = "???: Mas entao, vamos fazer (1)tapioca ou (2)pao?"; 
-    dialogo[2] = "???: Hum, ok, tapioca com (1)queijo ou (2)manteiga?";
-    dialogo[3] = "???: Pao! Adoro! (1)Misto ou com (2)manteiga?";
-    dialogo[4] = "???: Deixa eu experimentar... Tapioca com queijo ta uma delicia!";
-    dialogo[5] = "???: Tapioca nao ta tao boa, mas da pra engolir...";
-    dialogo[6] = "???: Deixa eu experimentar... Pao ta uma delicia.";
-    dialogo[7] = "???: O pao ta gostosinho, mas poderia ter colocado menos manteiga ne...";
+    dialogo[2] = "???: Hum, ok, tapioca com (1)presunto e queijo ou (2)banana?"; //tapioca
+    dialogo[3] = "???: Pao! Adoro! (1)Presunto e queijo ou com (2)carne?"; //pao
+    dialogo[4] = "???: Deixa eu experimentar... Tapioca com presunto e queijo ta muito boa!"; //tapioca p. e q.
+    dialogo[5] = "???: Tapioca com banana eh a melhor!"; //tapioca banana
+    dialogo[6] = "???: Deixa eu experimentar... Pao misto ta uma delicia!"; //pao misto
+    dialogo[7] = "???: O pao ta gostosinho, mas a carne ta muito salgada..."; //pao carne
     
 
     //for(i=1;i<8;i++) printf("\nLinha %d: %s\n", i, cafedamanha[i]);
@@ -104,13 +105,14 @@ int main(){
                 i = i*2 + 1;
                 break;
         
-            default:
-                printf("???: Nao entendi.\n");
+            default: //diff de 1 ou 2
+                printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
+                //scanf("%d", &d);
                 break;
         }   
     }
 
-    for(j=0;j<8;j++)free(dialogo[j]);
+    for(j=0;j<8;j++) free(dialogo[j]);
 
     free(dialogo);
 
@@ -146,8 +148,8 @@ int main(){
                 i = i*2 + 1;
                 break;
         
-            default:
-                printf("???: Nao entendi. Opcao 1 ou 2?\n"); //INCOMPLETO--------REPETE-SE!!------
+            default: //diff de 1 ou 2
+                printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
                 break;
         }  
     }
@@ -202,8 +204,8 @@ int main(){
                 i = i*2 + 1;
                 break;
         
-            default:
-                printf("???: Nao entendi. Opcao 1 ou 2?\n");
+           default: //diff de 1 ou 2
+                printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
                 break;
         }  
     }
@@ -240,7 +242,7 @@ int main(){
 
 
         while( VerificaCarac(nomeprotag) == 1 ){
-            printf("???: Isso nao eh possivel, deixa eu reler...\n");
+            printf("???: Isso nao eh possivel, deixa eu reler... Seu nome eh...\n");
             scanf("%*c");
             scanf("%[^\n]", nomeprotag);
         }
@@ -252,10 +254,17 @@ int main(){
 
     printf("\n");
     //--------------DETALHES DA ATUALIZAÇÃO-------------//
-    //DATA: 21/12
-    //AUTOR(A): MARI E GABS
-    //COMENTARIO DA ATUALIZAÇÃO: adicionei interação do nome do passaro e do protag + ideias
-    //INCOMPLETO: ta comentado :P
+    //DATA: 30/12
+    //AUTOR(A): MARI
+    //COMENTARIO DA ATUALIZAÇÃO: adicionei default dos switch
+    /*INCOMPLETO:
+        Nao precisar de enter ao pressionar tecla ( fgets() to get the input text and then sscanf() on the result )
+        ADD Arquivos
+        ADD "functions.h" e "functions.c" (tem como add no github + de 1 arquivo)
+    */
+    /*IDEIAS:
+        Dialogo anterior sumir
+    */
     //-----------THANKS FOR YOU CONTRIBUTION-----------//
 
 
@@ -269,7 +278,7 @@ int VerificaCarac(char * str){
    
     for(i=0; i < strlen(str); i++){
         //printf("%c", str[i]);
-        if( ( (int)str[i] >= 33 && (int)str[i] <= 64 ) || ( (int)str[i] >= 91 && str[i] <= 96 ) || ( (int)str[i] >= 123) ){
+        if( ( (int)str[i] >= 0 && (int)str[i] <= 64 ) || ( (int)str[i] >= 91 && str[i] <= 96 ) || ( (int)str[i] >= 123) ){
             ops = 1;
             break;
         }
