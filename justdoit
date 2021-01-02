@@ -125,16 +125,19 @@ int main(){
 
     printf("???: Ei, o que acha de me dar um nome? Seria mais legal!\n");
 
-    char qualmeunome[4][1000] = {"0",
-                                    "(1) Eh realmente necessario?\n(2) Tudo bem...",
-                                    "Ok, isso me machucou.",
-                                    "Esse eh o espirito!"
-    };
+    dialogo = calloc(4, sizeof(char*));
+
+    for(j=0;j<4;j++)dialogo[j] = calloc(1000, sizeof(char));
+
+    dialogo[0] = "0";
+    dialogo[1] = "(1) Eh realmente necessario?\n(2) Tudo bem...";
+    dialogo[2] = "Ok, isso me machucou.";
+    dialogo[3] = "Esse eh o espirito!";
 
     
     i = 1;
     while(i != 0){
-        printf("%s\n", qualmeunome[i]);
+        printf("%s\n", dialogo[i]);
         if(i == 2 || i == 3) break;
         scanf("%d", &d);
 
@@ -153,6 +156,10 @@ int main(){
                 break;
         }  
     }
+
+    for(j=0;j<4;j++) free(dialogo[j]);
+
+    free(dialogo);
 
     
     
@@ -178,11 +185,14 @@ int main(){
 
         printf("%s: Beleza, caro amigo, posso saber seu nome?\n");
 
-    char dialogprotagnome[4][1000] = {"0",
-                                    "(1) Nao.\n(2) Ah... Claro...",
-                                    "Voce me odeia?",
-                                    "Yey!"
-    };
+    dialogo = calloc(4, sizeof(char*));
+
+    for(j=0;j<4;j++)dialogo[j] = calloc(1000, sizeof(char));
+
+    dialogo[0] = "0";
+    dialogo[1] = "(1) Nao.\n(2) Ah... Claro...";
+    dialogo[2] = "Voce me odeia?";
+    dialogo[3] = "Yey!";
 
     char nomeprotag[20];
 
@@ -190,7 +200,7 @@ int main(){
     
     i = 1;
     while(i != 0){
-        printf("%s\n", dialogprotagnome[i]);
+        printf("%s\n", dialogo[i]);
         if(i == 2 || i == 3) break;
         scanf("%d", &d);
 
@@ -209,6 +219,10 @@ int main(){
                 break;
         }  
     }
+
+    for(j=0;j<4;j++) free(dialogo[j]);
+
+    free(dialogo);
 
 
     if(d==2){
