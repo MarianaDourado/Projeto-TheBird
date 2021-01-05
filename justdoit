@@ -5,6 +5,8 @@
 
 int VerificaCarac(char * str);
 
+void ImprimeCreditos(void);
+
 
 int main(){
     //Os dialogos anteriores podiam sumir :/
@@ -15,13 +17,18 @@ int main(){
     //JOGAR ->
     //tela preta que vai ficando mais clara
 
+    system("cls"); //limpa terminal
+
     //passaro fala:
     printf("???: Ei, voce finalmente acordou.\n");
-    printf("???: Tudo bem, e dificil no comeco, voce pode pressionar qualquer tecla para continuar.\n");
+    printf("???: Tudo bem, e dificil no comeco, voce pode pressionar qualquer tecla seguida do \"Enter\" para continuar.\n");
     scanf("%c", &entry); //IDEIA-----NAO PRECISAR DO ENTER PARA CONTINUAR, APENAS O CARACTER-----REPETE-SE-----//
-    printf("???: Otimo.\n");
 
     system("cls"); //limpa terminal
+
+    printf("???: Otimo.\n");
+
+    printf("\n");
 
     printf("???: Acho que estou com fome, que tal prepararmos alguma coisa?\n");
 
@@ -116,8 +123,10 @@ int main(){
 
     free(dialogo);
 
+
     printf("\n"); //scanf("%c", &entry); //IDEIA-------desacelerar o jogo-----REPETE-SE---
     //pode ser o enter
+
 
     char nomepassaro[20];
     int nome_ounao = 1; //presença de nome ou n
@@ -182,6 +191,7 @@ int main(){
 
         printf("\n");//scanf("%c", &entry); //desacelerar o jogo
         //pode ser o enter
+        
 
         printf("%s: Beleza, caro amigo, posso saber seu nome?\n");
 
@@ -267,22 +277,106 @@ int main(){
 
 
     printf("\n");
+
+
+    printf("(Seu celular esta vibrando com seguidas notificacoes. Ao lado, ha seu livro aberto com um marcacor de pagina amassado. Com qual voce quer interagir?)\n");
+    
+    dialogo = calloc(8, sizeof(char*));
+
+    for(j=0;j<8;j++) dialogo[j] = calloc(1000, sizeof(char));
+
+    dialogo[0] = "Error: 0 is not an option."; 
+    
+    dialogo[1] = "(1) Celular\n(2) Livro aberto";
+
+    dialogo[2] = "(Voce pega seu celular e percebe 8 chamadas de voz perdidas de um contato chamado \"Mae\". Oque voce faz?)\n(1) Retorna ligacao\n(2) Envia mensagem"; //celular
+
+    dialogo[3] = "(Voce puxa o livro para perto de si, ainda aberto na mesma pagina.)\n(1) Ler o que esta escrito no marcador\n(2) Ler uma frase numa linha aleatoria da pagina"; // livro aberto
+
+    dialogo[4] = "(Voce seleciona retornar ligacao para \"Mae\". O telefone toca... Toca... Mas ninguem atende.)\n";
+    dialogo[5] = "(Voce abre o WhatsBird e vai direto para a conversa com \"Mae\", digitando a seguinte mensagem: \"Oi, mae, estou bem. Por que me ligou tantas vezes?\")";
+    dialogo[6] = "(A frase lida no marcador foi: \"Sem prazer, nao ha vida. A luta pelo prazer encontra-se na luta pela vida.\")"; //o que esta no marcador
+    dialogo[7] = "(A frase lida no livro foi: \"-Minha existencia comecava a me espantar seriamente. Nao seria eu uma simples aparencia?\")"; //frase aleatoria
+    
+    i = d = 1;
+    while(i != 0){
+        printf("%s\n", dialogo[i]);
+        if(i == 4 || i == 5 || i == 6 || i == 7) break; //if(i == 5 || i == 6 || i == 7 || i == 8) break;
+        scanf("%d", &d);
+
+        switch (d){
+            case 1:
+                i = i*2;
+                break;
+
+            case 2:
+                i = i*2 + 1;
+                break;
+        
+            default: //diff de 1 ou 2
+                printf("Lembre-se que ha apenas a opcao 1 e 2\n");
+                //scanf("%d", &d);
+                break;
+        }   
+    }
+
+    for(j=0;j<8;j++) free(dialogo[j]);
+
+    free(dialogo);
+
+
+    printf("\n");
+
+
+    printf("%s: Nossa, voce esta com uma cara pessima.\n", nomepassaro);
+
+    printf("\n");
+
+    printf("(Ao olhar para o relogio voce imediatamente percebe seu atraso e ja imagina o esporro que vai levar do chefe...)\n");
+
+    printf("\n");
+
+    printf("%s: Ei, %s, certeza que voce quer ir ao trabalho? Quer dizer... Um dia nao vai fazer falta. Alem disso, voce nao quer levar um esporro do chefe, quer?\n", nomepassaro, nomeprotag);
+
+    printf("(ESSA DECISAO TEM CONSEQUENCIAS. ESCOLHA COM SABEDORIA.)\n(1) Faltar ao trabalho\n(2) Ir ao trabalho\n");
+    scanf("%d", &entry);
+
+    printf("\n");
+    
+    if(entry == 1){ //FALTOU AO TRBALHO
+        printf("Op 1\n");
+
+
+
+        printf("The End\nObrigado(a) por jogar The Bird.\n");
+        ImprimeCreditos();
+        return 0;
+    }
+    else{ //FOI AO TRABALHO
+        printf("Op 2\n");
+    }
+    
+
+    printf("\n\n\n");
+
+    printf("          THE END\nObrigado(a) por jogar The Bird.\n");
+    ImprimeCreditos();
+
+
     //--------------DETALHES DA ATUALIZAÇÃO-------------//
-    //DATA: 30/12
+    //DATA: 5/1
     //AUTOR(A): MARI
-    //COMENTARIO DA ATUALIZAÇÃO: adicionei default dos switch
+    //COMENTARIO DA ATUALIZAÇÃO: adicionei historia
     /*INCOMPLETO:
         Nao precisar de enter ao pressionar tecla ( fgets() to get the input text and then sscanf() on the result )
         ADD Arquivos
         ADD "functions.h" e "functions.c" (tem como add no github + de 1 arquivo)
+        ADD Struct
     */
     /*IDEIAS:
-        Dialogo anterior sumir
+        Dialogo anterior sumir (certeza?)
     */
     //-----------THANKS FOR YOU CONTRIBUTION-----------//
-
-
-    printf("The End\n");
 
   return 0;
 }
@@ -299,4 +393,43 @@ int VerificaCarac(char * str){
     }
     if(ops == 1) return 1;
     else return 0;
+}
+
+void ImprimeCreditos(){
+    printf("\n\n      CREDITOS FINAIS    \n\n");
+    printf("\nOferecimento(){ \n");
+        printf("  Universidade Federal de Goias(UFG);\n");
+        printf("}\n");
+
+
+    printf("\nDevelopers(){ \n");
+        printf("  Mariana \"Mari\" Santos;\n");
+        printf("  Gabriel \"Gabs\" Lopes;\n");
+        printf("}\n");
+
+    printf("\nDesenvolvedores da historia(){ \n");
+        printf("  Mariana \"Mari\" Santos;\n");
+        printf("  Gabriel \"Gabs\" Lopes;\n");
+        printf("}\n");
+
+    printf("\nDiretores(){ \n");
+        printf("  Mariana \"Mari\" Santos;\n");
+        printf("  Gabriel \"Gabs\" Lopes;\n");
+        
+        printf("}\n");
+
+    printf("\nEfeitos Sonoros(){ \n");
+        printf("  Calma, isso nao deveria estar aqui;\n  return -1;\n");
+        printf("}\n");
+
+    printf("\nAgradecimentos Especiais(){ \n");
+        printf("  Prof. Gustavo Teodoro Laureano;\n");
+        printf("  Arnaldo \"Pai da Mari\" Santos;\n");
+        printf("  Silene \"Mae da Mari\" Santos;\n");
+        printf("  Tallya \"tlly\" Jesus;\n");
+        printf("  Vitor \"Troloze\" Di Lorenzzi;\n");
+        printf("  Gabriel \"Amyr\" Freitas;\n");
+        printf("}\n");
+
+    printf("\nsystem(\"The End\");\nreturn 0;\n\n");
 }
