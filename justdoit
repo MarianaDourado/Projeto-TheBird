@@ -488,6 +488,7 @@ int main(){
         ImprimeCreditos();
         return 0;
     }
+
     else{ //FOI AO TRABALHO
         printf("%s: Tudo bem, voce quem sabe.\n", nomepassaro);
         getch();
@@ -565,19 +566,12 @@ int main(){
             printf("Que assunto puxar?\n(1) Falar sobre o trabalho\n(2) Falar sobre o clima\n");
             scanf("%d", &d);
             if(d==1){ //trab
-                printf("%s: Oo\n", nomeprotag);
-                getch();
-                system("cls");
+        
             }
             else{ //clima
-                printf("(Voce comeca a andar em direcao a garota com seu passo timido e sorriso desajeitado.)\n");
-                getch();
-                system("cls");
+
             }
-            
-            printf("%s: Parece que voce gosta dela, hein?\n", nomeprotag);
-            getch();
-            system("cls");
+        
         }
         else{//---------------------------------NAO FALA----------------------------------------------------//
             printf("(Voce fixa o olhar nela por um instante. Entao, manifesta uma vontade que logo se esvai.)\n");
