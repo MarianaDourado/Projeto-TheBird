@@ -2,27 +2,30 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <conio.h>
+
 
 int VerificaCarac(char * str);
 
 void ImprimeCreditos(void);
 
+/*
+void LimpaDialogo(int tam, char **dialogo);
+
+void CriaDialogo(int tam, char **dialogo);
+*/
 
 int main(){
-    //Os dialogos anteriores podiam sumir :/
-    //como?
+
     setlocale(LC_ALL, "");
     char entry;
-    //menu do jogo?
-    //JOGAR ->
-    //tela preta que vai ficando mais clara
-
+    
     system("cls"); //limpa terminal
 
     //passaro fala:
     printf("???: Ei, voce finalmente acordou.\n");
     printf("???: Tudo bem, e dificil no comeco, voce pode pressionar qualquer tecla seguida do \"Enter\" para continuar.\n");
-    scanf("%c", &entry); //IDEIA-----NAO PRECISAR DO ENTER PARA CONTINUAR, APENAS O CARACTER-----REPETE-SE-----//
+    scanf("%c", &entry); 
 
     system("cls"); //limpa terminal
 
@@ -71,7 +74,6 @@ int main(){
 
     }
         for(j=0;j<5;j++)free(dialogo[j]);
-
         free(dialogo);
     
 
@@ -82,9 +84,7 @@ int main(){
 
 
     dialogo = calloc(8, sizeof(char*));
-
     for(j=0;j<8;j++)dialogo[j] = calloc(1000, sizeof(char));
-
 
     dialogo[0] = "0"; 
     dialogo[1] = "???: Mas entao, vamos fazer (1)tapioca ou (2)pao?"; 
@@ -95,8 +95,6 @@ int main(){
     dialogo[6] = "???: Deixa eu experimentar... Pao misto ta uma delicia!"; //pao misto
     dialogo[7] = "???: O pao ta gostosinho, mas a carne ta muito salgada..."; //pao carne
     
-
-    //for(i=1;i<8;i++) printf("\nLinha %d: %s\n", i, cafedamanha[i]);
 
     while(i != 0){
         printf("%s\n", dialogo[i]);
@@ -120,12 +118,12 @@ int main(){
     }
 
     for(j=0;j<8;j++) free(dialogo[j]);
-
     free(dialogo);
 
 
     printf("\n"); //scanf("%c", &entry); //IDEIA-------desacelerar o jogo-----REPETE-SE---
     //pode ser o enter
+    //getche();
 
 
     char nomepassaro[20];
@@ -279,7 +277,7 @@ int main(){
     printf("\n");
 
 
-    printf("(Seu celular esta vibrando com seguidas notificacoes. Ao lado, ha seu livro aberto com um marcacor de pagina amassado. Com qual voce quer interagir?)\n");
+    printf("(Seu celular esta vibrando com seguidas notificacoes. Ao lado, ha seu livro aberto com um marcador vermelho escrito alguma frase. O que voce quer fazer?)\n");
     
     dialogo = calloc(8, sizeof(char*));
 
@@ -287,9 +285,9 @@ int main(){
 
     dialogo[0] = "Error: 0 is not an option."; 
     
-    dialogo[1] = "(1) Celular\n(2) Livro aberto";
+    dialogo[1] = "(1) Ver o celular\n(2) Pegar o livro aberto";
 
-    dialogo[2] = "(Voce pega seu celular e percebe 8 chamadas de voz perdidas de um contato chamado \"Mae\". Oque voce faz?)\n(1) Retorna ligacao\n(2) Envia mensagem"; //celular
+    dialogo[2] = "(Voce pega seu celular e percebe 8 chamadas de voz perdidas de um contato chamado \"Mae\". O que voce faz?)\n(1) Retorna ligacao\n(2) Envia mensagem"; //celular
 
     dialogo[3] = "(Voce puxa o livro para perto de si, ainda aberto na mesma pagina.)\n(1) Ler o que esta escrito no marcador\n(2) Ler uma frase numa linha aleatoria da pagina"; // livro aberto
 
@@ -343,23 +341,82 @@ int main(){
 
     printf("\n");
     
-    if(entry == 1){ //FALTOU AO TRBALHO
-        printf("Op 1\n");
+    if(entry == 1){ //---------------------------------------------------------------FALTOU AO TRABALHO-------------------------------------------------------------------
+        printf("%s: Ei, %s, tudo bem. Deve ser o melhor para voce. Vamos arranjar algo para passar o tempo.\n", nomepassaro, nomeprotag);
+
+        printf("(Voce olha ao redor de seu quarto desorganizado, entao percebe seu velho violao empoeirado apoiado na parede, e uma foto com pessoas em um porta-retrato branco em cima de sua escrivaninha.)\n");
+
+        dialogo = calloc(8, sizeof(char*));
+
+        for(j=0;j<8;j++) dialogo[j] = calloc(1000, sizeof(char));
+
+        dialogo[0] = "Error: '0' is not an option."; 
+    
+        dialogo[1] = "(1) Mexer no violao \n(2) Investigar retrato";
+
+        dialogo[2] = "(Voce pega seu violao. Tem tanta poeira que te faz espirrar por 2 minutos seguidos. Que musica tocar? \n(1) Seafret - Be There\n(2) Coldplay - Fix you"; //violao
+
+        dialogo[3] = "(Voce pega o retrato em suas maos. Sem duvida, uma linda paisagem da praia. Reconhece seus pais, voce e seu irmao mais velho ao seu lado. Estranhamente, voce nao se lembra dessa viagem.)\n(1) Recordar o irmao\n(2) Recordar a mae"; //retrato
+
+        dialogo[4] = "I lost everything.\nI threw myself in and you took me.\nWhere no one was there...\n"; //be there
+        dialogo[5] = "And the tears come streaming down your face.\nWhen you lose something, you can't replace.\nWhen you love someone, but it goes to waste.\nCould it be worse?"; //coldplay
+        dialogo[6] = "(Seu irmao mais velho morreu ha quatro anos. Acidente de carro. Desde entao, sua mae nunca mais foi a mesma e seu pai fugiu de casa.)"; //irmao
+        dialogo[7] = "(Sua mae era doce e divertida... ate a morte prematura de seu irmao mais velho. Acidente de carro. Seus pais nunca mais foram os mesmos desde entao)"; // mae
+    
+        i = d = 1;
+
+        int violao;
+        while(i != 0){
+            if(i == 2) violao = 1; //unico
+            printf("%s\n", dialogo[i]);
+            if(i == 4 || i == 5 || i == 6 || i == 7) break; //if(i == 5 || i == 6 || i == 7 || i == 8) break;
+            scanf("%d", &d);
+
+            switch (d){
+            case 1:
+            i = i*2;
+            break;
+
+            case 2:
+            i = i*2 + 1;
+            break;
+        
+            default: //diff de 1 ou 2
+            printf("Lembre-se que ha apenas a opcao 1 e 2\n");
+            //scanf("%d", &d);
+            break;
+            }   
+        }   
+
+        for(j=0;j<8;j++) free(dialogo[j]);
+
+        free(dialogo);
+
+        if(violao == 1){ //decidiu interagir com o violao (nao sabe do irmao)
+            printf("%s: Faz tempo que voce nao toca, ne? Mas tudo bem, eh uma bela musica.\n Que tal ver o retrato agora?");
+
+            printf("(Voce pega o retrato em suas maos. Sem duvida, uma linda paisagem da praia. Reconhece seus pais, voce e seu irmao mais velho ao seu lado. Estranhamente, voce nao se lembra dessa viagem.)\n(1) Recordar o irmao\n(2) Recordar a mae\n"; //retrato
+
+            if(i == 1) printf("%s: Seu irmao mais velho morreu ha quatro anos. Acidente de carro. Desde entao, sua mae nunca mais foi a mesma e seu pai fugiu de casa, lembra?\n", nomepassaro);
+            else{
+                printf("%s: Sua mae era doce e divertida. Voce se recorda dos momentos com ela... As risadas...\n", nomepassaro);
+                printf("%s: Ela era feliz ate a morte prematura de seu primeiro filho, Samuel. Infeliz acidente de carro. Seu irmao mais velho sempre foi protetor...\n", nomepassaro);
+                printf("Voce se lembra quando queria brincar na rua, mas ele tinha medo que voce se machucasse?\n", nomepassaro);
+            }
 
 
 
-        printf("The End\nObrigado(a) por jogar The Bird.\n");
+
+
+
+
         ImprimeCreditos();
         return 0;
     }
     else{ //FOI AO TRABALHO
-        printf("Op 2\n");
+        printf("%s: Tudo bem, voce quem sabe.\n", nomepassaro);
     }
     
-
-    printf("\n\n\n");
-
-    printf("          THE END\nObrigado(a) por jogar The Bird.\n");
     ImprimeCreditos();
 
 
@@ -395,7 +452,30 @@ int VerificaCarac(char * str){
     else return 0;
 }
 
+/*
+void CriaDialogo(int tam, char **dialogo){
+    int j;
+
+    dialogo = calloc(8, sizeof(char*));
+
+    for(j=0;j<tam;j++) dialogo[j] = calloc(1000, sizeof(char));
+}
+
+void LimpaDialogo(int tam, char **dialogo){
+    int j;
+
+    for(j=0;j<tam;j++) free(dialogo[j]);
+
+    free(dialogo);
+}
+*/
+
+
 void ImprimeCreditos(){
+    printf("\n\n\n");
+
+    printf("          THE END\nObrigado(a) por jogar The Bird.\n");
+
     printf("\n\n      CREDITOS FINAIS    \n\n");
     printf("\nOferecimento(){ \n");
         printf("  Universidade Federal de Goias(UFG);\n");
@@ -426,6 +506,7 @@ void ImprimeCreditos(){
         printf("  Prof. Gustavo Teodoro Laureano;\n");
         printf("  Arnaldo \"Pai da Mari\" Santos;\n");
         printf("  Silene \"Mae da Mari\" Santos;\n");
+        printf("  Arthur \"Paraiba\" Ximenes;\n");
         printf("  Tallya \"tlly\" Jesus;\n");
         printf("  Vitor \"Troloze\" Di Lorenzzi;\n");
         printf("  Gabriel \"Amyr\" Freitas;\n");
