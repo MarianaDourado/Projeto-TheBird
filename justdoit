@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-#include <conio.h>
-
 
 int VerificaCarac(char * str);
 
@@ -123,7 +121,6 @@ int main(){
 
     printf("\n"); //scanf("%c", &entry); //IDEIA-------desacelerar o jogo-----REPETE-SE---
     //pode ser o enter
-    //getche();
 
 
     char nomepassaro[20];
@@ -191,7 +188,7 @@ int main(){
         //pode ser o enter
         
 
-        printf("%s: Beleza, caro amigo, posso saber seu nome?\n");
+        printf("%s: Beleza, caro amigo, posso saber seu nome?\n", nomepassaro);
 
     dialogo = calloc(4, sizeof(char*));
 
@@ -204,8 +201,6 @@ int main(){
 
     char nomeprotag[20];
 
-    int nome2_ounao = 1; //presença de nome ou n
-    
     i = 1;
     while(i != 0){
         printf("%s\n", dialogo[i]);
@@ -215,7 +210,6 @@ int main(){
         switch (d){
             case 1:
                 i = i*2;
-                nome2_ounao = 0;
                 break;
 
             case 2:
@@ -337,11 +331,12 @@ int main(){
     printf("%s: Ei, %s, certeza que voce quer ir ao trabalho? Quer dizer... Um dia nao vai fazer falta. Alem disso, voce nao quer levar um esporro do chefe, quer?\n", nomepassaro, nomeprotag);
 
     printf("(ESSA DECISAO TEM CONSEQUENCIAS. ESCOLHA COM SABEDORIA.)\n(1) Faltar ao trabalho\n(2) Ir ao trabalho\n");
-    scanf("%d", &entry);
+    int trab;
+    scanf("%d", &trab);
 
     printf("\n");
     
-    if(entry == 1){ //---------------------------------------------------------------FALTOU AO TRABALHO-------------------------------------------------------------------
+    if(trab == 1){ //---------------------------------------------------------------FALTOU AO TRABALHO-------------------------------------------------------------------
         printf("%s: Ei, %s, tudo bem. Deve ser o melhor para voce. Vamos arranjar algo para passar o tempo.\n", nomepassaro, nomeprotag);
 
         printf("(Voce olha ao redor de seu quarto desorganizado, entao percebe seu velho violao empoeirado apoiado na parede, e uma foto com pessoas em um porta-retrato branco em cima de sua escrivaninha.)\n");
@@ -393,17 +388,19 @@ int main(){
         free(dialogo);
 
         if(violao == 1){ //decidiu interagir com o violao (nao sabe do irmao)
-            printf("%s: Faz tempo que voce nao toca, ne? Mas tudo bem, eh uma bela musica.\n Que tal ver o retrato agora?");
+            printf("%s: Faz tempo que voce nao toca, ne? Mas tudo bem, eh uma bela musica.\nQue tal ver o retrato agora?", nomepassaro);
 
-            printf("(Voce pega o retrato em suas maos. Sem duvida, uma linda paisagem da praia. Reconhece seus pais, voce e seu irmao mais velho ao seu lado. Estranhamente, voce nao se lembra dessa viagem.)\n(1) Recordar o irmao\n(2) Recordar a mae\n"; //retrato
+            printf("(Voce pega o retrato em suas maos. Sem duvida, uma linda paisagem da praia. Reconhece seus pais, voce e seu irmao mais velho ao seu lado. Estranhamente, voce nao se lembra dessa viagem.)\n(1) Recordar o irmao\n(2) Recordar a mae\n)"); //retrato
+
+            scanf("%d", &i);
 
             if(i == 1) printf("%s: Seu irmao mais velho morreu ha quatro anos. Acidente de carro. Desde entao, sua mae nunca mais foi a mesma e seu pai fugiu de casa, lembra?\n", nomepassaro);
             else{
                 printf("%s: Sua mae era doce e divertida. Voce se recorda dos momentos com ela... As risadas...\n", nomepassaro);
                 printf("%s: Ela era feliz ate a morte prematura de seu primeiro filho, Samuel. Infeliz acidente de carro. Seu irmao mais velho sempre foi protetor...\n", nomepassaro);
-                printf("Voce se lembra quando queria brincar na rua, mas ele tinha medo que voce se machucasse?\n", nomepassaro);
+                printf("%s: Voce se lembra quando queria brincar na rua, mas ele tinha medo que voce se machucasse?\n", nomepassaro);
             }
-
+        }
 
 
 
