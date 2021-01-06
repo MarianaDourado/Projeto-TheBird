@@ -1,22 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <locale.h>
+#include "functions.h"
 
-int VerificaCarac(char * str);
-
-void ImprimeCreditos(void);
-
-/*
-void LimpaDialogo(int tam, char **dialogo);
-
-void CriaDialogo(int tam, char **dialogo);
-*/
 
 int main(){
 
     setlocale(LC_ALL, "");
-    char entry;
+
+    int posicao_salva = 0;
+    char **dialogo;
+    char nomepassaro[20];
+    char nomeprotag[20];
+    int i, d;
+    i = d = 1;
+
+    FILE *save;
+    save = fopen("jogo_salvo", "r");
+    
+    if(save==NULL){
+        posicao_salva = 0;
+    }
+    else fscanf(save, "%d", &posicao_salva);
+
+    fclose(save);
     
     system("cls"); //limpa terminal
 
@@ -26,335 +32,265 @@ int main(){
 
     getch(); //recebe um caracter sem mostrar no terminal
     //getche(); //recebe um caracter e mostra no terminal
-
     system("cls");
 
-    //passaro fala:
-    printf("???: Ei, voce finalmente acordou.\n");
-    getch();
-
-    printf("???: Tudo bem, nao te esperei tanto assim.\n");
-    getch();
-    
-
-
-    printf("\n");
-    system("cls");
-
-    printf("???: Acho que estou com fome, que tal prepararmos alguma coisa?\n");
-    //getch(); //?
-
-    char **dialogo;
-    int j;
-
-    // aloca um vetor de LIN ponteiros para linhas
-    dialogo = malloc(sizeof(char*)*4);
-
-    // aloca um vetor com todos os elementos da matriz
-    for(j=0;j<4;j++) dialogo[j]=malloc(sizeof(char)*1000);
-    
-
-    dialogo[0] = "0";
-    dialogo[1] = "(1) Calmai! O que e voce?\n(2) Calmai! Quem e voce?";
-    dialogo[2] = "???: Nossa, \"o que sou eu\"? Isso doeu...";
-    dialogo[3] = "???: Bem... isso e complicado...";
-
-    
-    int i = 1, d;
-    while(i != 0){
-        printf("%s\n", dialogo[i]);
-        if(i == 2 || i == 3) break;
-        scanf("%d", &d);
+    int s;
+    if(posicao_salva > 0){
+        printf("Voce gostaria de carregar um jogo salvo?\n(1) Sim\n(2) Nao\n");
+        scanf("%d", &s);
         system("cls");
-
-        switch (d){
-            case 1:
-                i = i*2;
-                break;
-
-            case 2:
-                i = i*2 + 1;
-                break;
-        
-            default: //diff de 1 ou 2
-                printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
-                //getch(); // melhor nao
-                break;
-        }
-               
-
+        if(s==2)posicao_salva = 0;
     }
-        for(j=0;j<4;j++)free(dialogo[j]);
-        free(dialogo);
-    
     
 
-    i = d = 1;
+    if(posicao_salva == 0){
+        //passaro fala:
+        printf("???: Ei, voce finalmente acordou.\n");
+        getch();
 
-    printf("???: Por enquanto, sou apenas um passaro que ira te acompanhar em sua jornada.\n");
-    getch();
-
-
-    dialogo = calloc(8, sizeof(char*));
-    for(j=0;j<8;j++)dialogo[j] = calloc(1000, sizeof(char));
-
-    dialogo[0] = "0"; 
-    dialogo[1] = "???: Mas entao, vamos fazer (1)tapioca ou (2)pao?"; 
-    dialogo[2] = "???: Hum, ok, tapioca com (1)presunto e queijo ou (2)banana?"; //tapioca
-    dialogo[3] = "???: Pao! Adoro! (1)Presunto e queijo ou com (2)carne?"; //pao
-    dialogo[4] = "???: Deixa eu experimentar... Tapioca com presunto e queijo ta muito boa!"; //tapioca p. e q.
-    dialogo[5] = "???: Tapioca com banana eh a melhor!"; //tapioca banana
-    dialogo[6] = "???: Deixa eu experimentar... Pao misto ta uma delicia!"; //pao misto
-    dialogo[7] = "???: O pao ta gostosinho, mas a carne ta muito salgada..."; //pao carne
+        printf("???: Tudo bem, nao te esperei tanto assim.\n");
+        getch();
     
-
-    while(i != 0){
-        printf("%s\n", dialogo[i]);
-        if(i == 4 || i == 5 || i == 6 || i == 7) break;
-        scanf("%d", &d);
+        printf("\n");
         system("cls");
 
-        switch (d){
+        printf("???: Acho que estou com fome, que tal prepararmos alguma coisa?\n");
+        //getch(); //?
+
+        
+        dialogo = CriaDialogo(4, dialogo);
+    
+        dialogo[0] = "0";
+        dialogo[1] = "(1) Calmai! O que e voce?\n(2) Calmai! Quem e voce?";
+        dialogo[2] = "???: Nossa, \"o que sou eu\"? Isso doeu...";
+        dialogo[3] = "???: Bem... isso e complicado...";
+
+        ArvoreDecisao4(dialogo);
+        
+        LimpaDialogo(4, dialogo);
+    
+        printf("???: Por enquanto, sou apenas um passaro que ira te acompanhar em sua jornada.\n");
+        getch();
+        posicao_salva = SalvaJogo(1);
+    }
+
+    if(posicao_salva == 1){
+        dialogo = CriaDialogo(8, dialogo);
+
+        dialogo[0] = "0"; 
+        dialogo[1] = "???: Mas entao, vamos fazer (1)tapioca ou (2)pao?"; 
+        dialogo[2] = "???: Hum, ok, tapioca com (1)presunto e queijo ou (2)banana?"; //tapioca
+        dialogo[3] = "???: Pao! Adoro! (1)Presunto e queijo ou com (2)carne?"; //pao
+        dialogo[4] = "???: Deixa eu experimentar... Tapioca com presunto e queijo ta muito boa!"; //tapioca p. e q.
+        dialogo[5] = "???: Tapioca com banana eh a melhor!"; //tapioca banana
+        dialogo[6] = "???: Deixa eu experimentar... Misto ta uma delicia!"; //pao misto
+        dialogo[7] = "???: O pao ta gostosinho, mas a carne ta muito salgada..."; //pao carne
+        
+
+        ArvoreDecisao8(dialogo);
+
+        LimpaDialogo(8, dialogo);
+
+        getch();
+        printf("\n");
+        system("cls"); //scanf("%c", &entry); //IDEIA-------desacelerar o jogo-----REPETE-SE---
+        //pode ser o enter
+
+        posicao_salva = SalvaJogo(2);
+    }
+    
+    
+
+
+    if(posicao_salva == 2){
+        printf("???: Ei, o que acha de me dar um nome? Seria mais legal!\n");
+        //getch();
+
+        dialogo = CriaDialogo(4, dialogo);
+
+        dialogo[0] = "0";
+        dialogo[1] = "(1) Eh realmente necessario?\n(2) Tudo bem...";
+        dialogo[2] = "Ok, isso me machucou.";
+        dialogo[3] = "Esse eh o espirito!";
+
+        i = d = 1;
+
+        while(i != 0){
+            printf("%s\n", dialogo[i]);
+            if(i == 2 || i == 3) break;
+            scanf("%d", &d);
+            system("cls");
+
+            switch (d){
             case 1:
-                i = i*2;
-                break;
+            i = i*2;
+            break;
 
             case 2:
-                i = i*2 + 1;
-                break;
-        
+            i = i*2 + 1;
+            break;
+            
             default: //diff de 1 ou 2
-                printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
-                //getch();
-                break;
+            printf("Lembre-se que ha apenas a opcao 1 e 2\n");
+            //scanf("%d", &d);
+            break;
+            }   
         }   
-    }
-
-    for(j=0;j<8;j++) free(dialogo[j]);
-    free(dialogo);
-
-    getch();
-    printf("\n");
-    system("cls"); //scanf("%c", &entry); //IDEIA-------desacelerar o jogo-----REPETE-SE---
-    //pode ser o enter
 
 
-    char nomepassaro[20];
+        LimpaDialogo(4, dialogo);
 
-    printf("???: Ei, o que acha de me dar um nome? Seria mais legal!\n");
-    //getch();
-
-    dialogo = calloc(4, sizeof(char*));
-
-    for(j=0;j<4;j++)dialogo[j] = calloc(1000, sizeof(char));
-
-    dialogo[0] = "0";
-    dialogo[1] = "(1) Eh realmente necessario?\n(2) Tudo bem...";
-    dialogo[2] = "Ok, isso me machucou.";
-    dialogo[3] = "Esse eh o espirito!";
-
-    
-    i = 1;
-    while(i != 0){
-        printf("%s\n", dialogo[i]);
-        if(i == 2 || i == 3) break;
-        scanf("%d", &d);
+        getch();
         system("cls");
 
-        switch (d){
-            case 1:
-                i = i*2;
-                //nome_ounao = 0;
-                break;
-
-            case 2:
-                i = i*2 + 1;
-                break;
         
-            default: //diff de 1 ou 2
-                printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
-                break;
-        }  
-    }
-
-    for(j=0;j<4;j++) free(dialogo[j]);
-
-    free(dialogo);
-
-    getch();
-    system("cls");
-
-    
-    
-    if(d == 2){
-        printf("???: Entao, qual vai ser meu nome?!\n");
-        scanf("%*c"); //gab att
-        scanf("%[^\n]", nomepassaro);
-        system("cls");
-
-        //se houver presença de pelo menos um simbolo tem-se:
-        while( VerificaCarac(nomepassaro) == 1 ){ //nomepassaro
-            printf("???: Esse nome nao me parece apropriado, que tal tentar outro?\n");
+        
+        if(d == 2){
+            printf("???: Entao, qual vai ser meu nome?!\n");
             scanf("%*c"); //gab att
             scanf("%[^\n]", nomepassaro);
             system("cls");
+
+            //se houver presença de pelo menos um simbolo tem-se:
+            while( VerificaCarac(nomepassaro) == 1 ){ //nomepassaro
+                printf("???: Esse nome nao me parece apropriado, que tal tentar outro?\n");
+                scanf("%*c"); //gab att
+                scanf("%[^\n]", nomepassaro);
+                system("cls");
+            }
+            
+            printf("%s: Ei! Tudo certo! Me sinto vivo. %s eh um otimo nome!\n", nomepassaro, nomepassaro);
+            getch();
         }
-        
-        printf("%s: Ei! Tudo certo! Me sinto vivo. %s eh um otimo nome!\n", nomepassaro, nomepassaro);
-        getch();
-    }
-    else sprintf( nomepassaro, "???");
+        else sprintf( nomepassaro, "???");
 
-    //getch();
-    printf("\n");
-    system("cls");
-        
-
-    printf("%s: Beleza, caro amigo, posso saber seu nome?\n", nomepassaro);
-    //getch();
-
-    dialogo = calloc(4, sizeof(char*));
-
-    for(j=0;j<4;j++)dialogo[j] = calloc(1000, sizeof(char));
-
-    dialogo[0] = "0";
-    dialogo[1] = "(1) Nao.\n(2) Ah... Claro...";
-    dialogo[2] = "Voce me odeia?";
-    dialogo[3] = "Yey!";
-
-    char nomeprotag[20];
-
-    i = 1;
-    while(i != 0){
-        printf("%s\n", dialogo[i]);
-        if(i == 2 || i == 3) break;
-        scanf("%d", &d);
-        system("cls");
-
-        switch (d){
-            case 1:
-                i = i*2;
-                break;
-
-            case 2:
-                i = i*2 + 1;
-                break;
-        
-           default: //diff de 1 ou 2
-                printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
-                break;
-        }  
-    }
-
-    for(j=0;j<4;j++) free(dialogo[j]);
-
-    free(dialogo);
-
-
-    if(d==2){
-        printf("/---OBS: Lembre-se de colocar um nome masculino.---/\n"); //tem uma maneira mais sutil de relembrar isso?
-        printf("Meu nome eh ");
-        scanf("%*c");
-        scanf("%[^\n]", nomeprotag);
-        system("cls");
-
-
-        //se houver presença de pelo menos um simb no nome tem-se:
-        while( VerificaCarac(nomeprotag) == 1 ){
-            printf("???: Acho que seu nome nem existe ou sua mae te odeia, que tal tentar de novo?\n");
-            scanf("%*c");
-            scanf("%[^\n]", nomeprotag);
-            system("cls");
-        }
-
-
-        printf("%s: Wow! Nome legal, %s, hein?, queria que fosse o meu...\n", nomepassaro, nomeprotag);
         //getch();
-    }
-    else{
-        printf("\n");
-        printf("(O passaro olha ao redor de seu quarto e acaba encontrando uma carta assinada por voce)\n");
-
-        getch();
         printf("\n");
         system("cls");
+            
 
-        printf("/---OBS: Lembre-se de colocar um nome masculino.---/\n");
-        printf("%s: Ei, olha so! Nao tem como escapar de mim. Seu nome eh... Calma, que letra dificil... Ok, seu nome eh...\n ", nomepassaro);
-        scanf("%*c");
-        scanf("%[^\n]", nomeprotag);
-        system("cls");
-
-
-        while( VerificaCarac(nomeprotag) == 1 ){
-            printf("???: Isso nao eh possivel, deixa eu reler... Seu nome eh...\n");
-            scanf("%*c");
-            scanf("%[^\n]", nomeprotag);
-            system("cls");
-        }
-
-
-        printf("%s: Aha! Ok, amigo %s, nao se preocupe. Nao vou te machucar\n", nomepassaro, nomeprotag);
+        printf("%s: Beleza, caro amigo, posso saber seu nome?\n", nomepassaro);
         //getch();
-    }
-    getch();
+
+        dialogo = CriaDialogo(4, dialogo);
+
+        dialogo[0] = "0";
+        dialogo[1] = "(1) Nao.\n(2) Ah... Claro...";
+        dialogo[2] = "Voce me odeia?";
+        dialogo[3] = "Yey!";
 
 
-    printf("\n");
-    system("cls");
+        i = d = 1;
 
+        while(i != 0){
+            printf("%s\n", dialogo[i]);
+            if(i == 2 || i == 3) break;
+            scanf("%d", &d);
+            system("cls");
 
-    printf("(Seu celular esta vibrando com seguidas notificacoes. Ao lado, ha seu livro aberto com um marcador vermelho escrito alguma frase. O que voce quer fazer?)\n");
-    //getch();
-    
-    dialogo = calloc(8, sizeof(char*));
-
-    for(j=0;j<8;j++) dialogo[j] = calloc(1000, sizeof(char));
-
-    dialogo[0] = "Error: 0 is not an option."; 
-    
-    dialogo[1] = "(1) Ver o celular\n(2) Pegar o livro aberto";
-
-    dialogo[2] = "(Voce pega seu celular e percebe 8 chamadas de voz perdidas de um contato chamado \"Mae\". O que voce faz?)\n(1) Retorna ligacao\n(2) Envia mensagem"; //celular
-
-    dialogo[3] = "(Voce puxa o livro para perto de si, ainda aberto na mesma pagina.)\n(1) Ler o que esta escrito no marcador\n(2) Ler uma frase numa linha aleatoria da pagina"; // livro aberto
-
-    dialogo[4] = "(Voce seleciona retornar ligacao para \"Mae\". O telefone toca... Toca... Mas ninguem atende.)\n";
-    dialogo[5] = "(Voce abre o WhatsBird e vai direto para a conversa com \"Mae\", digitando a seguinte mensagem: \"Oi, mae, estou bem. Por que me ligou tantas vezes?\")";
-    dialogo[6] = "(A frase lida no marcador foi: \"Sem prazer, nao ha vida. A luta pelo prazer encontra-se na luta pela vida.\")"; //o que esta no marcador
-    dialogo[7] = "(A frase lida no livro foi: \"-Minha existencia comecava a me espantar seriamente. Nao seria eu uma simples aparencia?\")"; //frase aleatoria
-    
-    i = d = 1;
-    while(i != 0){
-        printf("%s\n", dialogo[i]);
-        if(i == 4 || i == 5 || i == 6 || i == 7) break; //if(i == 5 || i == 6 || i == 7 || i == 8) break;
-        scanf("%d", &d);
-        system("cls");
-
-        switch (d){
+            switch (d){
             case 1:
-                i = i*2;
-                break;
+            i = i*2;
+            break;
 
             case 2:
-                i = i*2 + 1;
-                break;
-        
+            i = i*2 + 1;
+            break;
+            
             default: //diff de 1 ou 2
-                printf("Lembre-se que ha apenas a opcao 1 e 2\n");
-                //scanf("%d", &d);
-                break;
+            printf("Lembre-se que ha apenas a opcao 1 e 2\n");
+            //scanf("%d", &d);
+            break;
+            }   
         }   
+
+
+        LimpaDialogo(4, dialogo);
+
+
+        if(d==2){
+            printf("/---OBS: Lembre-se de colocar um nome masculino.---/\n"); //tem uma maneira mais sutil de relembrar isso?
+            printf("Meu nome eh ");
+            scanf("%*c");
+            scanf("%[^\n]", nomeprotag);
+            system("cls");
+
+
+            //se houver presença de pelo menos um simb no nome tem-se:
+            while( VerificaCarac(nomeprotag) == 1 ){
+                printf("%s: Acho que seu nome nem existe ou sua mae te odeia, que tal tentar de novo?\n", nomepassaro);
+                scanf("%*c");
+                scanf("%[^\n]", nomeprotag);
+                system("cls");
+            }
+
+
+            printf("%s: Wow! Nome legal, %s, hein?, queria que fosse o meu...\n", nomepassaro, nomeprotag);
+            //getch();
+        }
+        else{
+            printf("\n");
+            printf("(O passaro olha ao redor de seu quarto e acaba encontrando uma carta assinada por voce)\n");
+
+            getch();
+            printf("\n");
+            system("cls");
+
+            printf("/---OBS: Lembre-se de colocar um nome masculino.---/\n");
+            printf("%s: Ei, olha so! Nao tem como escapar de mim. Seu nome eh... Calma, que letra dificil... Ok, seu nome eh...\n ", nomepassaro);
+            scanf("%*c");
+            scanf("%[^\n]", nomeprotag);
+            system("cls");
+
+
+            while( VerificaCarac(nomeprotag) == 1 ){
+                printf("???: Isso nao eh possivel, deixa eu reler... Seu nome eh...\n");
+                scanf("%*c");
+                scanf("%[^\n]", nomeprotag);
+                system("cls");
+            }
+
+
+            printf("%s: Aha! Ok, amigo %s, nao se preocupe. Nao vou te machucar\n", nomepassaro, nomeprotag);
+            //getch();
+        }
+        getch();
+
+
+        printf("\n");
+        system("cls");
+        posicao_salva = SalvaJogo2(3, nomepassaro, nomeprotag);
     }
 
-    for(j=0;j<8;j++) free(dialogo[j]);
 
-    free(dialogo);
+    if(posicao_salva == 3){
+        carregapassaro(nomepassaro, nomeprotag);
+        
+        printf("(Seu celular esta vibrando com seguidas notificacoes. Ao lado, ha seu livro aberto com um marcador vermelho escrito alguma frase. O que voce quer fazer?)\n");
+        //getch();
+        
+        dialogo = CriaDialogo(8, dialogo);
+
+        dialogo[0] = "Error: 0 is not an option."; 
+        dialogo[1] = "(1) Ver o celular\n(2) Pegar o livro aberto";
+        dialogo[2] = "(Voce pega seu celular e percebe 8 chamadas de voz perdidas de um contato chamado \"Mae\". O que voce faz?)\n(1) Retorna ligacao\n(2) Envia mensagem"; //celular
+        dialogo[3] = "(Voce puxa o livro para perto de si, ainda aberto na mesma pagina.)\n(1) Ler o que esta escrito no marcador\n(2) Ler uma frase numa linha aleatoria da pagina"; // livro aberto
+        dialogo[4] = "(Voce seleciona retornar ligacao para \"Mae\". O telefone toca... Toca... Mas ninguem atende.)\n";
+        dialogo[5] = "(Voce abre o WhatsBird e vai direto para a conversa com \"Mae\", digitando a seguinte mensagem: \"Oi, mae, estou bem. Por que me ligou tantas vezes?\")";
+        dialogo[6] = "(A frase lida no marcador foi: \"Sem prazer, nao ha vida. A luta pelo prazer encontra-se na luta pela vida.\")"; //o que esta no marcador
+        dialogo[7] = "(A frase lida no livro foi: \"-Minha existencia comecava a me espantar seriamente. Nao seria eu uma simples aparencia?\")"; //frase aleatoria
+        
+        ArvoreDecisao8(dialogo);
+
+        LimpaDialogo(8, dialogo);
 
 
-    printf("\n");
+        printf("\n");
+        SalvaJogo2(4, nomepassaro, nomeprotag);
+    }
 
 
+    if(posicao_salva==4){carregapassaro(nomepassaro, nomeprotag);}
     printf("%s: Nossa, voce esta com uma cara pessima.\n", nomepassaro);
 
     getch();
@@ -386,18 +322,12 @@ int main(){
         printf("(Voce olha ao redor de seu quarto desorganizado, entao percebe seu velho violao empoeirado apoiado na parede, e uma foto com pessoas em um porta-retrato branco em cima de sua escrivaninha.)\n");
         //getch();
 
-        dialogo = calloc(8, sizeof(char*));
+        dialogo = CriaDialogo(8, dialogo);
 
-        for(j=0;j<8;j++) dialogo[j] = calloc(1000, sizeof(char));
-
-        dialogo[0] = "Error: '0' is not an option."; 
-    
+        dialogo[0] = "Error: '0' is not an option.";  
         dialogo[1] = "(1) Mexer no violao \n(2) Investigar retrato";
-
         dialogo[2] = "(Voce pega seu violao. Tem tanta poeira que te faz espirrar por 2 minutos seguidos. Que musica tocar? \n(1) Seafret - Be There\n(2) Coldplay - Fix you"; //violao
-
         dialogo[3] = "(Voce pega o retrato em suas maos. Sem duvida, uma linda paisagem da praia. Reconhece seus pais, voce e seu irmao mais velho ao seu lado. Estranhamente, voce nao se lembra dessa viagem.)\n(1) Recordar o irmao\n(2) Recordar a mae"; //retrato
-
         dialogo[4] = "I lost everything.\nI threw myself in and you took me.\nWhere no one was there...\n"; //be there
         dialogo[5] = "And the tears come streaming down your face.\nWhen you lose something, you can't replace.\nWhen you love someone, but it goes to waste.\nCould it be worse?"; //coldplay
         dialogo[6] = "(Seu irmao mais velho morreu ha quatro anos. Acidente de carro. Desde entao, sua mae nunca mais foi a mesma e seu pai fugiu de casa.)"; //irmao
@@ -429,8 +359,7 @@ int main(){
             }   
         }   
 
-        for(j=0;j<8;j++) free(dialogo[j]);
-        free(dialogo);
+        LimpaDialogo(8, dialogo);
 
         if(violao == 1){ //decidiu interagir com o violao (nao sabe do irmao)
             printf("%s: Faz tempo que voce nao toca, ne? Mas tudo bem, eh uma bela musica.\nQue tal ver o retrato agora?\n", nomepassaro);
@@ -550,10 +479,10 @@ int main(){
         printf("%s: Vai ficar tudo bem...\n", nomepassaro);
         getch();
 
-        system("pause");
+        //system("pause");
         printf("\n\n");
 
-        printf("(A depressao te venceu aqui. Nao deixe ela te vencer na vida. Ligue 188.)\n");
+        printf("Game Over\nPressione qualquer tecla para ver os Creditos Finais\n");
         getch();
 
         ImprimeCreditos();
@@ -580,8 +509,155 @@ int main(){
         getch();
         system("cls");
 
-        //chefe reclama do atraso dele novamente
-        //ele fala com a garota que gosta ou nao?
+        printf("Chefe: %s! Mais uma vez atrasado!? Ja cansei de te dar sermao...\n", nomeprotag);
+        getch();
+        system("cls");
+
+        dialogo = CriaDialogo(4, dialogo);
+
+        dialogo[0] = "Error: '0' is not an option."; 
+    
+        dialogo[1] = "(1) Pedir desculpa ao chefe \n(2) Dar de ombros";
+
+        dialogo[2] = "(Voce pede desculpa ao chefe, mas ele parece nao ter te escutado.)"; //dsclp
+
+        dialogo[3] = "(Voce ignora a gritaria do chefe com voce. Contudo, ele nao parece estar surepreso...)"; //ombros
+    
+        ArvoreDecisao4(dialogo);
+
+        LimpaDialogo(4, dialogo);
+
+        printf("%s: Bem que eu avisei. Mas ok, vamo ver o trabalho de hoje.\n", nomepassaro);
+        getch();
+        system("cls");
+
+        printf("%s: Lembre-se que voce deve trabalhar com hora extra hoje. Sua mae precisa dos remedios. Isso so depende de voce.\n", nomepassaro);
+        getch();
+        system("cls");
+
+        printf("(Voce segue para seu escritorio)\n");
+        getch();
+        system("cls");
+
+        printf("%s: Mas, ei, quem eh aquela mulher formosa ali?\n", nomepassaro);
+        getch();
+        system("cls");
+
+        printf("(Voce engole seco)\n");
+        getch();
+        system("cls");
+
+        printf("%s: Parece que voce gosta dela, hein?\n", nomepassaro);
+        getch();
+        system("cls");
+
+        printf("(ESSA DECISAO TEM CONSEQUENCIAS.)\n");
+        int girl;
+
+        printf("Falar com a garota?\n(1) Sim\n(2) Nao\n");
+        scanf("%d", &girl);
+
+        if(girl == 1){//------------------------------------------------------------FALOU COM A GAROTA-----------------------------------------------//
+            printf("(Voce comeca a andar em direcao a garota com seu passo timido e sorriso desajeitado.)\n");
+            getch();
+            system("cls");
+
+            printf("Que assunto puxar?\n(1) Falar sobre o trabalho\n(2) Falar sobre o clima\n");
+            scanf("%d", &d);
+            if(d==1){ //trab
+                printf("%s: Oo\n", nomeprotag);
+                getch();
+                system("cls");
+            }
+            else{ //clima
+                printf("(Voce comeca a andar em direcao a garota com seu passo timido e sorriso desajeitado.)\n");
+                getch();
+                system("cls");
+            }
+            
+            printf("%s: Parece que voce gosta dela, hein?\n", nomeprotag);
+            getch();
+            system("cls");
+        }
+        else{//---------------------------------NAO FALA----------------------------------------------------//
+            printf("(Voce fixa o olhar nela por um instante. Entao, manifesta uma vontade que logo se esvai.)\n");
+            getch();
+            system("cls");
+
+            printf("%s: Ei, tudo bem. Poderia ter sido muito pior se voce falasse com ela. Concorda?\n", nomepassaro);
+            getch();
+            system("cls");
+
+            printf("%s: Bem, vamos para nossa sala e fazer nosso trabalho.\n", nomepassaro);
+            getch();
+            system("cls");
+
+            printf("%s: Wow. Quantos papeis empilhados na sua mesa. Voce nao fez progresso algum?\n", nomepassaro);
+            getch();
+            system("cls");
+        
+            printf("(1) Eu tentei\n(2) Eu perdi a vontade");
+            scanf("%d", &d);
+
+            if(d == 1){ //tentou
+                printf("%s: Ah, claro que tentou. Me perdoe.\n", nomepassaro);
+                getch();
+                system("cls");
+            }
+            else{ //n tentou
+                printf("%s: Ah, eu te entendo completamente. Mas tudo bem. Acontece, certo?\n", nomepassaro);
+                getch();
+                system("cls");
+            }
+        }
+
+        printf("(A garota de mais cedo entra em sua sala te oferecendo cafe.)");
+        getch();
+        system("cls");
+
+        printf("(1) Aceitar cafe\n(2) Recusar cafe");
+        scanf("%d", &d);
+
+        if(d == 1){ //aceita cafe
+            printf("%s: S-Sofia, e-eu aceito o cafe sim. Muito obrigado.\n", nomeprotag);
+            getch();
+            system("cls");
+
+            printf("(Voce pega a caneca, mas seu nervosismo faz a caneca deslizar de sua mao, derramando cafe quentissimo nas suas pernas.)");
+            getch();
+            system("cls");
+
+            printf("(Seu grito estridente acaba assustando a doce Sofia... Pobre Sofia...)");
+            getch();
+            system("cls");
+
+            printf("(Assustada, ela sai correndo de seu escritorio.)");
+            getch();
+            system("cls");
+        }
+        else{ //recusa cafe
+            printf("%s: Sofia! N-nao, obrigado. Ah, e da proxima vez, bate na porta.\n", nomeprotag);
+            getch();
+            system("cls");
+
+            printf("(O sorriso de Sofia se dissipa enquanto voce fala. Entao, cabisbaixa, sai de seu escritorio.)");
+            getch();
+            system("cls");
+        }
+        
+        printf("%s: Wow! Parabens, voce a decepcionou. Satisfeito?\n", nomepassaro);
+        getch();
+        system("cls");
+
+        printf("(O tempo de seu expediente vai passando lentamente... As pessoas vao para casa de pouco em pouco...)");
+        getch();
+        system("cls");
+
+        printf("%s: Estou com sono. Quando isso vai terminar?\n", nomepassaro);
+        getch();
+        system("cls");
+
+    
         //ao final do expediente ele eh demitido
         //chega em casa
         //toma antidepressivo? (passaro diz que eh veneno, paranoia)
@@ -595,103 +671,15 @@ int main(){
 
     //--------------DETALHES DA ATUALIZAÇÃO-------------//
     //DATA: 6/1
-    //AUTOR(A): MARI, Gabs
-    //COMENTARIO DA ATUALIZAÇÃO: Tentei manter o terminal mais limpo, a cada entrada do usuario, ao mesmo tempo limpa as falas anteriores.
-    //system("pause") na linha 553, não sei se é a melhor das ideias.
+    //AUTOR(A): Mari, Gabs
+    //COMENTARIO DA ATUALIZAÇÃO: Terminal mais limpo, ADD save files.
     /*INCOMPLETO:
-        Nao precisar de enter ao pressionar tecla ( fgets() to get the input text and then sscanf() on the result )
-        ADD Arquivos
-        ADD "functions.h" e "functions.c" (tem como add no github + de 1 arquivo)
         ADD Struct
     */
     /*IDEIAS:
-        para ADD arquivos, podemos criar um log, onde mantem registro de suas escolhas.
-        Dialogo anterior sumir (done).
-        o restante da historia esta comentado na parte em que ele escolhe ir ao trabalho
+        Fazer video <3
     */
     //-----------THANKS FOR YOU CONTRIBUTION-----------//
 
   return 0;
-}
-
-int VerificaCarac(char * str){
-    int i, ops = 0;
-   
-    for(i=0; i < strlen(str); i++){
-        //printf("%c", str[i]);
-        if( ( (int)str[i] >= 0 && (int)str[i] <= 64 ) || ( (int)str[i] >= 91 && str[i] <= 96 ) || ( (int)str[i] >= 123) ){
-            ops = 1;
-            break;
-        }
-    }
-    if(ops == 1) return 1;
-    else return 0;
-}
-
-/*
-void CriaDialogo(int tam, char **dialogo){
-    int j;
-
-    dialogo = calloc(8, sizeof(char*));
-
-    for(j=0;j<tam;j++) dialogo[j] = calloc(1000, sizeof(char));
-}
-
-void LimpaDialogo(int tam, char **dialogo){
-    int j;
-
-    for(j=0;j<tam;j++) free(dialogo[j]);
-
-    free(dialogo);
-}
-*/
-
-
-void ImprimeCreditos(){
-    printf("\n\n\n");
-
-    printf("          THE END\nObrigado(a) por jogar The Bird.\n");
-
-    printf("\n\n      CREDITOS FINAIS    \n\n");
-    printf("\nOferecimento(){ \n");
-        printf("  Universidade Federal de Goias(UFG);\n");
-        printf("}\n");
-
-
-    printf("\nDevelopers(){ \n");
-        printf("  Mariana \"Mari\" Santos;\n");
-        printf("  Gabriel \"Gabs\" Lopes;\n");
-        printf("}\n");
-
-    printf("\nDesenvolvedores da historia(){ \n");
-        printf("  Mariana \"Mari\" Santos;\n");
-        printf("  Gabriel \"Gabs\" Lopes;\n");
-        printf("}\n");
-
-    printf("\nDiretores(){ \n");
-        printf("  Mariana \"Mari\" Santos;\n");
-        printf("  Gabriel \"Gabs\" Lopes;\n");
-        printf("}\n");
-
-    printf("\nEfeitos Sonoros(){ \n");
-        printf("  Calma, isso nao deveria estar aqui;\n  return -1;\n");
-        printf("}\n");
-
-    printf("\nAgradecimentos Especiais(){ \n");
-        printf("  Prof. Gustavo Teodoro Laureano;\n");
-        printf("  Arnaldo \"Pai da Mari\" Santos;\n");
-        printf("  Silene \"Mae da Mari\" Santos;\n");
-        printf("  Arthur \"Paraiba\" Ximenes;\n");
-        printf("  Tallya \"tlly\" Jesus;\n");
-        printf("  Vitor \"Troloze\" Di Lorenzzi;\n");
-        printf("  Gabriel \"Amyr\" Freitas;\n");
-        printf("  Luigi \"Brav0k\" Gontijo;\n");
-        printf("  Marcelo \"Irmao do Luigi\" Gontijo;\n");
-        printf("  Joao Pedro \"Jao\" Silva;\n");
-        
-        printf("}\n");
-
-        printf("\n2020-2021\n");
-
-    printf("\nsystem(\"The End\");\nreturn 0;\n\n");
 }
