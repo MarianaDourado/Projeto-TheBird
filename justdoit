@@ -20,18 +20,27 @@ int main(){
     
     system("cls"); //limpa terminal
 
+    printf("Os developers advertem: para uma melhor experiencia utilize o terminal em tela cheia.\n\n");
+    printf("A mecanica eh bem simples, apenas nos dialogos com decisoes sera necessario pressionar a tecla \"Enter\" apos a escolha.\n");
+    printf("Bom jogo!\nPressione qualquer tecla para continuar.\n");
+
+    getch(); //recebe um caracter sem mostrar no terminal
+    //getche(); //recebe um caracter e mostra no terminal
+
+    system("cls");
+
     //passaro fala:
     printf("???: Ei, voce finalmente acordou.\n");
-    printf("???: Tudo bem, e dificil no comeco, voce pode pressionar qualquer tecla seguida do \"Enter\" para continuar.\n");
-    scanf("%c", &entry); 
+    getch();
 
-    system("cls"); //limpa terminal
+    printf("???: Tudo bem, nao te esperei tanto assim.\n");
+    getch();
 
-    printf("???: Otimo.\n");
 
     printf("\n");
 
     printf("???: Acho que estou com fome, que tal prepararmos alguma coisa?\n");
+    //getch(); //?
 
     char **dialogo;
     int j;
@@ -66,6 +75,7 @@ int main(){
         
             default: //diff de 1 ou 2
                 printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
+                //getch(); // melhor nao
                 break;
         }
                
@@ -79,6 +89,7 @@ int main(){
     i = d = 1;
 
     printf("???: Por enquanto, sou apenas um passaro que ira te acompanhar em sua jornada.\n");
+    getch();
 
 
     dialogo = calloc(8, sizeof(char*));
@@ -110,7 +121,7 @@ int main(){
         
             default: //diff de 1 ou 2
                 printf("???: Nao entendi.\nLembre-se que ha apenas a opcao 1 e 2\n");
-                //scanf("%d", &d);
+                //getch();
                 break;
         }   
     }
@@ -118,16 +129,15 @@ int main(){
     for(j=0;j<8;j++) free(dialogo[j]);
     free(dialogo);
 
-
+    getch();
     printf("\n"); //scanf("%c", &entry); //IDEIA-------desacelerar o jogo-----REPETE-SE---
     //pode ser o enter
 
 
     char nomepassaro[20];
-    int nome_ounao = 1; //presença de nome ou n
-    //em outro momento da historia ele pergunta o nome
 
     printf("???: Ei, o que acha de me dar um nome? Seria mais legal!\n");
+    //getch();
 
     dialogo = calloc(4, sizeof(char*));
 
@@ -148,7 +158,7 @@ int main(){
         switch (d){
             case 1:
                 i = i*2;
-                nome_ounao = 0;
+                //nome_ounao = 0;
                 break;
 
             case 2:
@@ -165,9 +175,11 @@ int main(){
 
     free(dialogo);
 
+    getch();
+
     
     
-    if(nome_ounao != 0){
+    if(d == 2){
         printf("???: Entao, qual vai ser meu nome?!\n");
         scanf("%*c"); //gab att
         scanf("%[^\n]", nomepassaro);
@@ -180,15 +192,16 @@ int main(){
         }
         
         printf("%s: Ei! Tudo certo! Me sinto vivo. %s eh um otimo nome!\n", nomepassaro, nomepassaro);
+        getch();
     }
     else sprintf( nomepassaro, "???");
 
-
-        printf("\n");//scanf("%c", &entry); //desacelerar o jogo
-        //pode ser o enter
+    //getch();
+    printf("\n");
         
 
-        printf("%s: Beleza, caro amigo, posso saber seu nome?\n", nomepassaro);
+    printf("%s: Beleza, caro amigo, posso saber seu nome?\n", nomepassaro);
+    //getch();
 
     dialogo = calloc(4, sizeof(char*));
 
@@ -243,13 +256,14 @@ int main(){
 
 
         printf("%s: Wow! Nome legal, %s, hein?, queria que fosse o meu...\n", nomepassaro, nomeprotag);
+        //getch();
     }
     else{
         printf("\n");
         printf("(O passaro olha ao redor de seu quarto e acaba encontrando uma carta assinada por voce)\n");
 
-        printf("\n"); //scanf("%c", &entry); //desacelerar o jogo
-        //pode ser o enter
+        getch();
+        printf("\n");
 
         printf("/---OBS: Lembre-se de colocar um nome masculino.---/\n");
         printf("%s: Ei, olha so! Nao tem como escapar de mim. Seu nome eh... Calma, que letra dificil... Ok, seu nome eh...\n ", nomepassaro);
@@ -265,13 +279,16 @@ int main(){
 
 
         printf("%s: Aha! Ok, amigo %s, nao se preocupe. Nao vou te machucar\n", nomepassaro, nomeprotag);
+        //getch();
     }
+    getch();
 
 
     printf("\n");
 
 
     printf("(Seu celular esta vibrando com seguidas notificacoes. Ao lado, ha seu livro aberto com um marcador vermelho escrito alguma frase. O que voce quer fazer?)\n");
+    //getch();
     
     dialogo = calloc(8, sizeof(char*));
 
@@ -322,15 +339,19 @@ int main(){
 
     printf("%s: Nossa, voce esta com uma cara pessima.\n", nomepassaro);
 
+    getch();
     printf("\n");
 
     printf("(Ao olhar para o relogio voce imediatamente percebe seu atraso e ja imagina o esporro que vai levar do chefe...)\n");
 
+    getch();
     printf("\n");
 
     printf("%s: Ei, %s, certeza que voce quer ir ao trabalho? Quer dizer... Um dia nao vai fazer falta. Alem disso, voce nao quer levar um esporro do chefe, quer?\n", nomepassaro, nomeprotag);
+    getch();
 
-    printf("(ESSA DECISAO TEM CONSEQUENCIAS. ESCOLHA COM SABEDORIA.)\n(1) Faltar ao trabalho\n(2) Ir ao trabalho\n");
+    printf("(ESSA DECISAO TEM CONSEQUENCIAS.)\n(1) Faltar ao trabalho\n(2) Ir ao trabalho\n");
+
     int trab;
     scanf("%d", &trab);
 
@@ -338,8 +359,10 @@ int main(){
     
     if(trab == 1){ //---------------------------------------------------------------FALTOU AO TRABALHO-------------------------------------------------------------------
         printf("%s: Ei, %s, tudo bem. Deve ser o melhor para voce. Vamos arranjar algo para passar o tempo.\n", nomepassaro, nomeprotag);
+        getch();
 
         printf("(Voce olha ao redor de seu quarto desorganizado, entao percebe seu velho violao empoeirado apoiado na parede, e uma foto com pessoas em um porta-retrato branco em cima de sua escrivaninha.)\n");
+        //getch();
 
         dialogo = calloc(8, sizeof(char*));
 
@@ -384,34 +407,131 @@ int main(){
         }   
 
         for(j=0;j<8;j++) free(dialogo[j]);
-
         free(dialogo);
 
         if(violao == 1){ //decidiu interagir com o violao (nao sabe do irmao)
-            printf("%s: Faz tempo que voce nao toca, ne? Mas tudo bem, eh uma bela musica.\nQue tal ver o retrato agora?", nomepassaro);
+            printf("%s: Faz tempo que voce nao toca, ne? Mas tudo bem, eh uma bela musica.\nQue tal ver o retrato agora?\n", nomepassaro);
+            getch();
 
-            printf("(Voce pega o retrato em suas maos. Sem duvida, uma linda paisagem da praia. Reconhece seus pais, voce e seu irmao mais velho ao seu lado. Estranhamente, voce nao se lembra dessa viagem.)\n(1) Recordar o irmao\n(2) Recordar a mae\n)"); //retrato
-
+            printf("(Voce pega o retrato em suas maos. Sem duvida, uma linda paisagem da praia. Reconhece seus pais, voce e seu irmao mais velho ao seu lado. Estranhamente, voce nao se lembra dessa viagem.)\n(1) Recordar o irmao\n(2) Recordar a mae\n"); //retrato
             scanf("%d", &i);
 
             if(i == 1) printf("%s: Seu irmao mais velho morreu ha quatro anos. Acidente de carro. Desde entao, sua mae nunca mais foi a mesma e seu pai fugiu de casa, lembra?\n", nomepassaro);
             else{
                 printf("%s: Sua mae era doce e divertida. Voce se recorda dos momentos com ela... As risadas...\n", nomepassaro);
-                printf("%s: Ela era feliz ate a morte prematura de seu primeiro filho, Samuel. Infeliz acidente de carro. Seu irmao mais velho sempre foi protetor...\n", nomepassaro);
+                getch();
+                printf("%s: Ela era feliz ate a morte prematura de seu primeiro filho, Samuel. Infeliz acidente de carro. Seu irmao sempre foi protetor...\n", nomepassaro);
+                getch();
                 printf("%s: Voce se lembra quando queria brincar na rua, mas ele tinha medo que voce se machucasse?\n", nomepassaro);
+                getch();
             }
+            
         }
 
+        printf("%s: Eu sinto muito, %s. Sei que se sente culpado. Eu entendo sua vontade de querer voltar ao passado e fazer tudo diferente.\n", nomepassaro, nomeprotag);
+        getch();
+        printf("%s: Parece que... O presente eh uma prisao, nao eh, %s?\n", nomepassaro, nomeprotag);
+        getch();
+        printf("%s: Me diz, voce acha que sua mae realmente se importa com voce? Ou apenas age por egoismo pois nao quer perder outro filho e ficar pior ainda?\n", nomepassaro);
+        getch();
+        printf("%s: ...\n", nomepassaro);
+        getch();
+        printf("%s: Eu sei, nao eh facil pensar nisso. Mas, veja, seu pai nao aguentou e fugiu... E sua mae se enfiou na cama, sem coragem de levantar.\n", nomepassaro);
+        getch();
+        printf("%s: Diga-me, %s, voce se sente amado?\n", nomepassaro, nomeprotag);
+
+        printf("(1) Sim\n(2) Nao\n");
+        scanf("%d", &d);
 
 
+        if(d == 1){//sim
+            printf("%s: Sim, eu me sinto amado. Minha mae se importa comigo, nada do que voce falou eh real! PARA COM ISSO!\n", nomeprotag);
+            getch();
 
+            printf("%s: Eu sinto pena de voce, %s, nao ve que essa luta ja acabou?\n", nomepassaro, nomeprotag);
+            getch();
 
+            printf("%s: Voce nem sequer lembra da ultima vez que escutou a voz de sua mae. Seu passado eh um branco total. VOCE SE ESQUECEU DE TUDO QUE TE MANTINHA VIVO!\n", nomepassaro);
+            getch();
+
+            printf("%s: Quando sua vitalidade comecou a se suprimir?\n", nomepassaro);
+            getch();
+
+            printf("%s: Quando foi a ultima vez que se sentiu vivo, %s?\n", nomepassaro, nomeprotag);
+            getch();
+
+            printf("%s: Eu sei o quanto voce quer resistir a isso, a mim, %s. Mas nao ha mais volta. Voce ja foi tomado por esse sentimento de vazio e impotencia ha muito tempo.\n", nomepassaro, nomeprotag);
+            getch();
+
+            printf("%s: Mas, ei, nao tem problema. Tudo tem solucao, certo?\n", nomepassaro);
+            getch();
+
+            printf("(%s te entrega diversas pilulas e comprimidos.)\n", nomepassaro);
+            getch();
+
+            printf("%s: Isso vai te curar totalmente, confie em mim.\n", nomepassaro);
+            getch();
+
+        }
+        else{ //nao
+            printf("%s: Nao... Realmente... Agora que voce falou, parece que tudo ficou mais claro...\n", nomeprotag);
+            getch();
+
+            printf("%s: Sim, eu estou certo, nao eh? Sua existencia realmente nao importa.\n", nomepassaro);
+            getch();
+
+            printf("%s: Mas nao se preocupe, isso logo vai passar. Tome.\n", nomepassaro);
+            getch();
+
+            printf("(%s te entrega diversas pilulas e comprimidos.)\n", nomepassaro);
+            getch();
+
+            printf("%s: Isso vai acabar com meu sofrimento? Minha dor? Minha culpa? Tudo isso? Eu nao aguento mais...\n", nomeprotag);
+            getch();
+
+            printf("%s: Sim, vai te curar totalmente, confie em mim. Isso vai acabar logo.\n", nomepassaro);
+            getch();
+
+        }
+
+        printf("(Voce engole todas as pilulas e comprimidos esperando que a dor passe.)\n");
+        getch();
+
+        printf("%s: Vai ficar tudo bem...\n", nomepassaro);
+        getch();
+
+        printf("\n\n");
+
+        printf("(A depressao te venceu aqui. Nao deixe ela te vencer na vida. Ligue 188.)\n");
+        getch();
 
         ImprimeCreditos();
         return 0;
     }
     else{ //FOI AO TRABALHO
         printf("%s: Tudo bem, voce quem sabe.\n", nomepassaro);
+        getch();
+
+        printf("(Voce se veste para o trabalho enquanto se olha no espelho, percebendo que nao se encontra em boa forma.)\n");
+        getch();
+
+        printf("%s: Sua olheiras estao maiores? Voce nao anda dormindo bem, ne?\n", nomepassaro);
+        getch();
+
+        printf("(Voce pega suas coisas e segue a caminho do trabalho.)\n");
+        getch();
+
+        printf("(Algum tempo depois...)\n");
+        getch();
+
+        //chefe reclama do atraso dele novamente
+        //ele fala com a garota que gosta ou nao?
+        //ao final do expediente ele eh demitido
+        //chega em casa
+        //toma antidepressivo? (passaro diz que eh veneno, paranoia)
+        //se tomar, sobrevive (jogo acaba)
+        //se nao, comeca a ter ilusoes e se mata
+        //fim do jogo
     }
     
     ImprimeCreditos();
@@ -420,7 +540,7 @@ int main(){
     //--------------DETALHES DA ATUALIZAÇÃO-------------//
     //DATA: 5/1
     //AUTOR(A): MARI
-    //COMENTARIO DA ATUALIZAÇÃO: adicionei historia
+    //COMENTARIO DA ATUALIZAÇÃO: adicionei historia e getch()
     /*INCOMPLETO:
         Nao precisar de enter ao pressionar tecla ( fgets() to get the input text and then sscanf() on the result )
         ADD Arquivos
@@ -428,7 +548,8 @@ int main(){
         ADD Struct
     */
     /*IDEIAS:
-        Dialogo anterior sumir (certeza?)
+        Dialogo anterior sumir
+        o restante da historia esta comentado na parte em que ele escolhe ir ao trabalho
     */
     //-----------THANKS FOR YOU CONTRIBUTION-----------//
 
@@ -492,7 +613,6 @@ void ImprimeCreditos(){
     printf("\nDiretores(){ \n");
         printf("  Mariana \"Mari\" Santos;\n");
         printf("  Gabriel \"Gabs\" Lopes;\n");
-        
         printf("}\n");
 
     printf("\nEfeitos Sonoros(){ \n");
@@ -507,7 +627,13 @@ void ImprimeCreditos(){
         printf("  Tallya \"tlly\" Jesus;\n");
         printf("  Vitor \"Troloze\" Di Lorenzzi;\n");
         printf("  Gabriel \"Amyr\" Freitas;\n");
+        printf("  Luigi \"Brav0k\" Gontijo;\n");
+        printf("  Marcelo \"Irmao do Luigi\" Gontijo;\n");
+        printf("  Joao Pedro \"Jao\" Silva;\n");
+        
         printf("}\n");
+
+        printf("\n2020-2021\n");
 
     printf("\nsystem(\"The End\");\nreturn 0;\n\n");
 }
