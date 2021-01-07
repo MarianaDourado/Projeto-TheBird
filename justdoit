@@ -69,7 +69,7 @@ int main(){
         
         LimpaDialogo(4, dialogo);
     
-        printf("???: Por enquanto, sou apenas um passaro que ira te acompanhar em sua jornada.\n");
+        printf("???: Por enquanto, sou apenas um passaro azul que ira te acompanhar em sua jornada.\n");
         getch();
         posicao_salva = SalvaJogo(1);
     }
@@ -564,13 +564,46 @@ int main(){
             system("cls");
 
             printf("Que assunto puxar?\n(1) Falar sobre o trabalho\n(2) Falar sobre o clima\n");
-            scanf("%d", &d);
-            if(d==1){ //trab
-        
+            int ass;
+            scanf("%d", &ass);
+            if(ass==1){ //trab
+                printf("%s: E-ei, Sofia. Trabalho chato, hein? Hehe...\n", nomeprotag);
+                getch();
+                system("cls");
+
+                printf("(Ela te olha com uma cara estranha, porem da uma risada no final. Tao linda...)\n");
+                getch();
+                system("cls");
+
+                printf("Sofia: Sim, ainda mais depois que o ar-condicionado quebrou. Ta um calor infernal!\n");
+                getch();
+                system("cls");
             }
             else{ //clima
+                printf("%s: E-ei, Sofia. Esse inverno frio e seco eh horrivel, ne? Hehe.\n", nomeprotag);
+                getch();
+                system("cls");
 
+                printf("(Ela te olha com uma cara estranha, porem da uma risada no final. Tao linda...)\n");
+                getch();
+                system("cls");
+
+                printf("Sofia: Sim, se cuide e tome bastante agua!\n");
+                getch();
+                system("cls");
             }
+
+            printf("(Um silencio constrangedor predomina.)\n");
+            getch();
+            system("cls");
+
+            printf("Sofia: Ei, preciso resolver umas coisas... Ate mais tarde.\n");
+            getch();
+            system("cls");
+
+            printf("(O sorriso dela eh encantador...)\n");
+            getch();
+            system("cls");
         
         }
         else{//---------------------------------NAO FALA----------------------------------------------------//
@@ -580,39 +613,40 @@ int main(){
 
             printf("%s: Ei, tudo bem. Poderia ter sido muito pior se voce falasse com ela. Concorda?\n", nomepassaro);
             getch();
-            system("cls");
-
-            printf("%s: Bem, vamos para nossa sala e fazer nosso trabalho.\n", nomepassaro);
-            getch();
-            system("cls");
-
-            printf("%s: Wow. Quantos papeis empilhados na sua mesa. Voce nao fez progresso algum?\n", nomepassaro);
-            getch();
-            system("cls");
-        
-            printf("(1) Eu tentei\n(2) Eu perdi a vontade");
-            scanf("%d", &d);
-
-            if(d == 1){ //tentou
-                printf("%s: Ah, claro que tentou. Me perdoe.\n", nomepassaro);
-                getch();
-                system("cls");
-            }
-            else{ //n tentou
-                printf("%s: Ah, eu te entendo completamente. Mas tudo bem. Acontece, certo?\n", nomepassaro);
-                getch();
-                system("cls");
-            }
+            system("cls"); 
         }
 
-        printf("(A garota de mais cedo entra em sua sala te oferecendo cafe.)");
+        printf("%s: Bem... Vamos para nossa sala e fazer nosso trabalho, ok?\n", nomepassaro);
         getch();
         system("cls");
 
-        printf("(1) Aceitar cafe\n(2) Recusar cafe");
+        printf("%s: Wow. Quantos papeis empilhados na sua mesa. Voce nao fez progresso algum?\n", nomepassaro);
+        getch();
+        system("cls");
+        
+        printf("(1) Eu tentei\n(2) Eu perdi a vontade");
         scanf("%d", &d);
 
-        if(d == 1){ //aceita cafe
+        if(d == 1){ //tentou
+            printf("%s: Ah, claro que tentou. Me perdoe.\n", nomepassaro);
+            getch();
+            system("cls");
+        }
+        else{ //n tentou
+            printf("%s: Ah, eu te entendo completamente. Mas tudo bem. Acontece, certo?\n", nomepassaro);
+            getch();
+            system("cls");
+        }
+
+        printf("(A garota de mais cedo entra em sua sala te oferecendo cafe.)\n");
+        getch();
+        system("cls");
+
+        printf("(1) Aceitar cafe\n(2) Recusar cafe\n");
+        int cafe;
+        scanf("%d", &cafe);
+
+        if(cafe == 1){ //aceita cafe
             printf("%s: S-Sofia, e-eu aceito o cafe sim. Muito obrigado.\n", nomeprotag);
             getch();
             system("cls");
@@ -651,29 +685,249 @@ int main(){
         getch();
         system("cls");
 
-    
-        //ao final do expediente ele eh demitido
-        //chega em casa
-        //toma antidepressivo? (passaro diz que eh veneno, paranoia)
-        //se tomar, sobrevive (jogo acaba)
-        //se nao, comeca a ter ilusoes e se mata
-        //fim do jogo
+        printf("(O chefe eh o ultimo a sair do servico. Bate em sua porta e abre sem esperar uma resposta.)");
+        getch();
+        system("cls");
+
+        printf("(Em sua mao esta sua maleta e algumas notas de dinheiro.)");
+        getch();
+        system("cls");
+
+        printf("Chefe: %s, voce esta demitido. Aqui esta seu salario.", nomeprotag);
+        getch();
+        system("cls");
+
+        printf("%s: DEMITIDO? COMO VOCE VAI PAGAR AS DESPESAS MILIONARIAS DOS REMEDIOS DA SUA MAE? E AS CONTAS? OS BOLETOS? AI MEU DEUS...", nomepassaro);
+        getch();
+        system("cls");
+
+        printf("(Nao sai uma palavra da sua boca. Voce apenas olha para o chao e aceita.)");
+        getch();
+        system("cls");
+
+        printf("(Voce pega suas coisas e vai para casa... Sem perspectivas para o futuro.)");
+        getch();
+        system("cls");
+
+        printf("%s: Como isso pode acontecer? Agora que aconteceu... Parece que sua vida dependia desse trabalho...", nomepassaro);
+        getch();
+        system("cls");
+
+        printf("%s: Como se o dinheiro fosse seu unico motivo para continuar vivendo... Ou melhor, existindo.", nomepassaro);
+        getch();
+        system("cls");
+
+        printf("%s: Como se o dinheiro fosse seu unico motivo para continuar vivendo... Ou melhor, existindo.\n", nomepassaro);
+
+        printf("(1) Estou vivendo\n(2) Estou existindo\n");
+        int viveounao;
+        scanf("%d", &viveounao);
+
+        if(viveounao==1){ //vive
+            printf("%s: Eu estou vivendo. Sim. Estou vivendo. Basta eu conseguir outro trabalho. Vai dar certo...", nomeprotag);
+            getch();
+            system("cls");
+
+            printf("%s: Sua mae precisa dos remedios urgentemente, %s. Nao finja que esta tudo bem. Isso doi ate mesmo em mim.", nomepassaro, nomeprotag);
+            getch();
+            system("cls");
+
+            printf("%s: Eu sei... eu sei...", nomeprotag);
+            getch();
+            system("cls");
+
+            printf("%s: Acontece que eu tambem preciso. Era isso que eu estava esquecendo.", nomeprotag);
+            getch();
+            system("cls");
+
+            printf("(O passaro se assusta. Ele parece aflito por algum motivo.)");
+            getch();
+            system("cls");
+
+            printf("(Voce vai em direcao ao seu quarto.)");
+            getch();
+            system("cls");
+
+            printf("(1) Abrir primeira gaveta\n(2) Abrir segunda gaveta.\n");
+            int gav;
+            scanf("%d", &gav);
+
+            if(gav==1){
+                printf("(A primeira gaveta abre)");
+                getch();
+                system("cls");
+            }
+
+            else{
+                printf("(A psegunda gaveta abre)");
+                getch();
+                system("cls");
+            }
+
+            printf("(Voce pega uma pequena caixa de remedios. Ao mesmo tempo que lhe eh familiar, tambem lhe eh estranha.)");
+            getch();
+            system("cls");
+
+            printf("%s: Entao eh isso? Voce vai tomar veneno?", nomepassaro);
+            getch();
+            system("cls");
+
+            printf("(%s parece estar com raiva.)", nomepassaro);
+            getch();
+            system("cls");
+
+            printf("%s: Nao eh veneno. Sao meus antidepressivos. Eu esqueci de tomar esta manha.", nomeprotag);
+            getch();
+            system("cls");
+
+            printf("%s: Voce nao ve!? Isso eh veneno! Forjaram isto, substituiram seus comprimidos. Eu vi!", nomepassaro);
+            getch();
+            system("cls");
+
+            printf("%s: Por favor, %s, temos tanto ainda pela frente. Nao faca isso.", nomepassaro);
+            getch();
+            system("cls");
+
+            printf("(ESSA DECISAO TEM CONSEQUENCIAS.)\n(1) Engolir o comprimido\n(2) Nao engolir o comprimido\n");
+            int antidep;
+            scanf("%d", &antidep);
+
+            if(antidep==1){//engole. (sobrevive)
+                printf("(Voce engole o comprimido)");
+                getch();
+                system("cls");
+
+                printf("(%s esta chorando.)");
+                getch();
+                system("cls");
+
+                printf("(Num piscar de olhos o passaro azul na sua frente some sem deixar vestigios.)");
+                getch();
+                system("cls");
+
+                printf("(Voce venceu. Parabens pela bravura.)");
+                getch();
+                system("cls");
+
+                printf("\n\n");
+
+                printf("Pressione qualquer tecla para ver os Creditos Finais\n");
+                getch();
+                system("cls");
+
+                ImprimeCreditos();
+                return 0;
+
+            }
+            else{//nao engole (morre)
+                printf("%s: Isso. Relaxa, %s. Vai ficar tudo bem. Vou cuidar de voce.\n", nomepassaro, nomeprotag);
+                getch();
+                system("cls");
+
+                printf("(Suas lagrimas rolam descontroladamente por seu rosto.)");
+                getch();
+                system("cls");
+
+                printf("%s: Tudo bem, tudo bem. Tome isto.\n", nomepassaro);
+                getch();
+                system("cls");
+
+                printf("(%s te entrega inumeras pilulas e comprimidos.)");
+                getch();
+                system("cls");
+
+                printf("%s: Isso vai acabar com sua dor. Confie em mim.\n", nomepassaro);
+                getch();
+                system("cls");
+
+                printf("(Seu olhos brilham.)");
+                getch();
+                system("cls");
+
+                printf("%s: Finalmente...\n", nomeprotag);
+                getch();
+                system("cls");
+
+                printf("(Voce engole todas as pilulas e comprimidos esperando que a dor passe.)\n");
+                getch();
+                system("cls");
+
+                printf("%s: Vai ficar tudo bem...\n", nomepassaro);
+                getch();
+
+                //system("pause");
+                printf("\n\n");
+
+                printf("Game Over\nPressione qualquer tecla para ver os Creditos Finais\n");
+                getch();
+
+                ImprimeCreditos();
+                return 0;
+            }
+
+            
+        }
+        else{ //existe
+            printf("%s: Estou... existindo... Apenas.", nomeprotag);
+            getch();
+            system("cls");
+
+            printf("(Voce baixa a cabeca.)");
+            getch();
+            system("cls");
+
+            printf("%s: Calma, %s. Eh normal se sentir assim. Vai passar.\n", nomepassaro, nomeprotag);
+            getch();
+            system("cls");
+
+            printf("%s: Aqui, tome isto.\n", nomepassaro);
+            getch();
+            system("cls");
+
+            printf("(%s te entrega inumeras pilulas e comprimidos.)");
+            getch();
+            system("cls");
+
+            printf("%s: Isso vai acabar com sua dor. Confie em mim.\n", nomepassaro);
+            getch();
+            system("cls");
+
+            printf("(Seu olhos brilham.)");
+            getch();
+            system("cls");
+
+            printf("%s: Finalmente...\n", nomeprotag);
+            getch();
+            system("cls");
+
+            printf("(Voce engole todas as pilulas e comprimidos esperando que a dor passe.)\n");
+            getch();
+            system("cls");
+
+            printf("%s: Vai ficar tudo bem...\n", nomepassaro);
+            getch();
+
+            //system("pause");
+            printf("\n\n");
+
+            printf("Game Over\nPressione qualquer tecla para ver os Creditos Finais\n");
+            getch();
+
+            ImprimeCreditos();
+            return 0;
+        }
     }
     
     ImprimeCreditos();
 
+    return 0;
+}
 
-    //--------------DETALHES DA ATUALIZAÇÃO-------------//
+//--------------DETALHES DA ATUALIZAÇÃO-------------//
     //DATA: 6/1
     //AUTOR(A): Mari, Gabs
     //COMENTARIO DA ATUALIZAÇÃO: Terminal mais limpo, ADD save files.
-    /*INCOMPLETO:
-        ADD Struct
-    */
     /*IDEIAS:
         Fazer video <3
     */
-    //-----------THANKS FOR YOU CONTRIBUTION-----------//
-
-  return 0;
-}
+//-----------THANKS FOR YOU CONTRIBUTION-----------//
