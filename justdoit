@@ -624,7 +624,7 @@ int main(){
         getch();
         system("cls");
         
-        printf("(1) Eu tentei\n(2) Eu perdi a vontade");
+        printf("(1) Eu tentei\n(2) Eu perdi a vontade\n");
         scanf("%d", &d);
 
         if(d == 1){ //tentou
@@ -636,6 +636,26 @@ int main(){
             printf("%s: Ah, eu te entendo completamente. Mas tudo bem. Acontece, certo?\n", nomepassaro);
             getch();
             system("cls");
+        }
+
+        //DAR NOME AO PASSARO SE NAO DEU ANTES
+        if( strcmp(nomepassaro, "???") == 0 ){
+            printf("%s: Ei, eh uma otima hora para me dar um nome, nao acha?\n", nomepassaro);
+            printf("%s: Entao, qual vai ser meu nome?\n", nomepassaro);
+            scanf("%*c"); //gab att
+            scanf("%[^\n]", nomepassaro);
+            system("cls");
+
+            //se houver presença de pelo menos um simbolo tem-se:
+            while( VerificaCarac(nomepassaro) == 1 ){ //nomepassaro
+                printf("???: Esse nome nao me parece apropriado, que tal tentar outro?\n");
+                scanf("%*c"); //gab att
+                scanf("%[^\n]", nomepassaro);
+                system("cls");
+            }
+            
+            printf("%s: Ei! Tudo certo! Me sinto vivo. \"%s\" eh um otimo nome!\n", nomepassaro, nomepassaro);
+            getch();
         }
 
         printf("(A garota de mais cedo entra em sua sala te oferecendo cafe.)\n");
@@ -759,7 +779,7 @@ int main(){
             }
 
             else{
-                printf("(A psegunda gaveta abre)");
+                printf("(A segunda gaveta abre)");
                 getch();
                 system("cls");
             }
@@ -797,7 +817,7 @@ int main(){
                 getch();
                 system("cls");
 
-                printf("(%s esta chorando.)");
+                printf("(%s esta chorando.)", nomepassaro);
                 getch();
                 system("cls");
 
